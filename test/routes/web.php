@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,9 +14,20 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::prefix('users')-> middleware('auth')->group(function(){
+    Route::get('index', [UserController::class, 'index'])->name('users.index');
+    // Route::get('edit/{shop}', [ShopController::class, 'edit'])->name('shops.edit');
+    // Route::post('update/{shop}', [ShopController::class, 'update'])->name('shops.update');
 });
+
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+
+// Route::get('/users/index', function () {
+//     return view('users.index');
+// })->middleware(['auth'])->name('users.index');
+
 
 Route::get('/dashboard', function () {
     return view('dashboard');

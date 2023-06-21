@@ -16,7 +16,7 @@ class CreateUsersTable extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('name')->comment('社員名');
-            $table->string('employee_code')->comment('社員コード');
+            $table->integer('affiliation_office')->comment('所属事業所');
             $table->string('email')->comment('メールアドレス')->unique();
             $table->timestamp('email_verified_at')->comment('メールアドレス確認')->nullable();
             $table->string('password')->comment('パスワード');
@@ -36,7 +36,8 @@ class CreateUsersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('employee_general');
+        // Schema::dropIfExists('user_office');
+        Schema::dropIfExists('project_user');
         Schema::dropIfExists('users');
     }
 }

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class ProjectGeneralTable extends Migration
+class ProjectUserTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,10 @@ class ProjectGeneralTable extends Migration
      */
     public function up()
     {
-        Schema::create('project_general', function (Blueprint $table) {
+        Schema::create('project_user', function (Blueprint $table) {
+            $table->id();
             $table->foreignId('project_id');
-            $table->foreignId('general_id');
+            $table->foreignId('user_id');
 
             // 外部キー制約
             $table->foreign('project_id')
@@ -23,9 +24,9 @@ class ProjectGeneralTable extends Migration
                 ->on('projects')
                 ->onDelete('cascade');
 
-            $table->foreign('general_id')
+            $table->foreign('user_id')
                 ->references('id')
-                ->on('generals')
+                ->on('users')
                 ->onDelete('cascade'); 
 
             $table->dateTime('created_at')->nullable();
@@ -41,6 +42,6 @@ class ProjectGeneralTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('project_general');
+        Schema::dropIfExists('project_user');
     }
 }
