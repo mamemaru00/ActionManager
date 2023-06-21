@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ $office_data->office_name }}
+            プロジェクト名
         </h2>
     </x-slot>
 
@@ -20,23 +20,30 @@
                                             <tr>
                                                 <th
                                                     class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100 rounded-tl rounded-bl">
-                                                    プロジェクト</th>
+                                                    担当営業</th>
                                                 <th
-                                                    class="w-10 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100 rounded-tr rounded-br">
-                                                </th>
+                                                    class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">
+                                                    納期</th>
+                                                <th
+                                                    class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">
+                                                    受注金額</th>
+                                                <th
+                                                    class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">
+                                                    受注日</th>
+                                                <th
+                                                    class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">
+                                                    有効化・無効化</th>
                                             </tr>
                                         </thead>
-                                        @foreach ($project_data as $projects)
-                                            <tbody>
-                                                <tr>
-                                                    <td class="px-4 py-3">{{ $projects->project_name }}</td>
-                                                    <td class="w-10 text-center">
-                                                        <input name="plan" type="radio">
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        @endforeach
-                                        <!-- ここにforeachを入れて表示する -->
+                                        {{-- ここにforeach --}}
+                                        <tbody>
+                                            <tr>
+                                                <td class="px-4 py-3">ここにforeachの内容</td>
+                                                <td class="w-10 text-center">
+                                                    <input name="plan" type="radio">
+                                                </td>
+                                            </tr>
+                                        </tbody>
                                     </table>
                                 </div>
 
