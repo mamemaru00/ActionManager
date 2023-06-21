@@ -20,9 +20,22 @@ class UsersTableSeeder extends Seeder
             'tanaka' => '田中'
         ];
 
+        $affiliation_office = [ 
+            'hayata' => '1',
+            'yamada' => '2',
+            'tanaka' => '3',
+        ];
+
+        // $office_code = [
+        //     'hayata' => 'AA1',
+        //     'yamada' => 'BB2',
+        //     'tanaka' => 'CC3',
+        // ];
+
         foreach($names as $email => $user){
             User::create([
                 'name' => $user,
+                'affiliation_office' =>$affiliation_office[$email], 
                 'email' => $email.'@example.com',
                 'password' => bcrypt('xxx')
             ]);

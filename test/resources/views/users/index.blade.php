@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            事業所名
+            {{ $office_data->office_name }}
         </h2>
     </x-slot>
 
@@ -12,21 +12,13 @@
                     <section class="text-gray-600 body-font">
                         <div class="container px-5 py-24 mx-auto">
                             <div class="lg:w-2/3 w-full mx-auto overflow-auto">
+                                <!-- ここにformを挿入してリダイレクトできるようにする -->
                                 <table class="table-auto w-full text-left whitespace-no-wrap">
                                     <thead>
                                         <tr>
                                             <th
                                                 class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100 rounded-tl rounded-bl">
                                                 プロジェクト</th>
-                                            <th
-                                                class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">
-                                            </th>
-                                            <th
-                                                class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">
-                                            </th>
-                                            <th
-                                                class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">
-                                            </th>
                                             <th
                                                 class="w-10 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100 rounded-tr rounded-br">
                                             </th>
@@ -40,11 +32,12 @@
                                             </td>
                                         </tr>
                                     </tbody>
+                                    <!-- ここにforeachを入れて表示する -->
                                 </table>
                             </div>
                             <div class="flex pl-4 mt-4 lg:w-2/3 w-full mx-auto">
                                 <button
-                                    class="flex ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded">Button</button>
+                                    class="flex ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded">詳細</button>
                             </div>
                         </div>
                     </section>

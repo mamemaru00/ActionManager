@@ -7,6 +7,10 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use App\Models\Office;
+
 
 /**
  * App\Models\User
@@ -70,4 +74,18 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    //Officeに紐付け
+    // public function office(): BelongsToMany
+    // {
+    //     // return $this->belongsTo('App\Models\Office'); hasMany
+    //     // return $this->belongsToMany(Office::class);
+    //     // return $this->hasMany(Office::class);
+    //     return $this->belongsToMany(User::class, 'offices_users', 'office_id', 'user_id');
+    // }
+
+    public function office() 
+    {
+        return $this->belongsTo(Office::class, 'affiliation_office', 'office_id');
+    }
 }
