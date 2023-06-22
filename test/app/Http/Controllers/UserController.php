@@ -26,7 +26,8 @@ class UserController extends Controller
         // $office_data = Office::with('id')->find(1); 
 
         // プロジェクトのプロジェクトコードとプロジェクト名を取得
-        $project_data = Project::get();
+        //プロジェクトは納期の降順で表示する
+        $project_data = Project::orderBy('sales_in_charge', 'desc')->get();
 
         // dd($project_data);
 
