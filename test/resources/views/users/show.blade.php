@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            プロジェクト名
+            {{ $project_data->project_name }}
         </h2>
     </x-slot>
 
@@ -35,13 +35,14 @@
                                                     有効化・無効化</th>
                                             </tr>
                                         </thead>
-                                        {{-- ここにforeach --}}
                                         <tbody>
                                             <tr>
-                                                <td class="px-4 py-3">ここにforeachの内容</td>
-                                                <td class="w-10 text-center">
-                                                    <input name="plan" type="radio">
+                                                <td class="px-4 py-3">{{ optional($project_data)->manager_name }}</td>
+                                                <td class="px-4 py-3">{{ optional($project_data)->sales_in_charge }}
                                                 </td>
+                                                <td class="px-4 py-3">{{ optional($project_data)->order_amount }}円</td>
+                                                <td class="px-4 py-3">{{ optional($project_data)->order_date }}</td>
+                                                <td class="px-4 py-3">{{ optional($project_data)->status }}</td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -49,8 +50,10 @@
 
                                 <div class="flex pl-4 mt-4 lg:w-2/3 w-full mx-auto">
                                     {{-- ボタンを遷移できるように変更する --}}
+                                    <button type="button" onclick="location.href='{{ route('users.index') }}'"
+                                        class="flex ml-auto text-white bg-red-500 border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded">戻る</button>
                                     <button type="submit"
-                                        class="flex ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded">詳細</button>
+                                        class="flex ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded">編集</button>
                                 </div>
                             </form>
                         </div>

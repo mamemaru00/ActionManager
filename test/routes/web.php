@@ -16,8 +16,7 @@ use App\Http\Controllers\UserController;
 
 Route::prefix('users')-> middleware('auth')->group(function(){
     Route::get('index', [UserController::class, 'index'])->name('users.index');
-    // Route::get('edit/{shop}', [ShopController::class, 'edit'])->name('shops.edit');
-    // Route::post('update/{shop}', [ShopController::class, 'update'])->name('shops.update');
+    Route::get('show/{id}', [UserController::class, 'show'])->name('users.show');
 });
 
 // Route::get('/', function () {
