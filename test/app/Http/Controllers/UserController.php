@@ -10,22 +10,20 @@ use App\Models\Office;
 
 class UserController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
+        //とりあえず、できる範囲で表示はできるようにしておく
+        //今後修正すること
         //中間テーブルのidを使用してUserテーブルのinteger('affiliation_office')とOfficeテーブルのoffice_idが合致する値を取得する
-
         $office_data = Office::find(1);
         // $office_data = User::with('office')->get();
         // $office_data = User::where('affiliation_office', "=", Office::where('id'))->get();
         // $office_data = Office::with('id')->find(1); 
 
-        // プロジェクトのプロジェクトコードとプロジェクト名を取得
-        $project_data = Project::get('project_code', 'project_name');
+        $project_data = Project::orderBy('sales_in_charge', 'desc')->get();
+
+        // dd($project_data);
 
         return view('users.index', 
         compact('office_data', 'project_data'));
@@ -60,7 +58,14 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        //
+        //プロジェクトが表示されないからわかり次第解決する
+        //プロジェクトテーブルからデータを持ってくる
+        $project_data = Project::find($id);
+
+        // dd($project_data);
+
+        return view('users.show', 
+        compact('project_data'));
     }
 
     /**

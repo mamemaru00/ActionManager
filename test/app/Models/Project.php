@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\User;
 
 class Project extends Model
 {
@@ -17,9 +18,16 @@ class Project extends Model
     protected $fillable = [
         'project_code',
         'project_name',
+        'manager_code',
+        'manager_name',
         'sales_in_charge',
         'order_amount',
         'order_date',
         'status'
     ];
+
+    public function users()
+    {
+        return $this->belongsToMany(User::class);
+    }
 }

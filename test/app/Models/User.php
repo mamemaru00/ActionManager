@@ -10,6 +10,7 @@ use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use App\Models\Office;
+use App\Models\Project;
 
 
 /**
@@ -87,5 +88,10 @@ class User extends Authenticatable
     public function office() 
     {
         return $this->belongsTo(Office::class, 'affiliation_office', 'office_id');
+    }
+
+    public function project() 
+    {
+        return $this->belongsTo(Project::class);
     }
 }
