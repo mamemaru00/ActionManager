@@ -12,8 +12,8 @@
                     <section class="text-gray-600 body-font">
                         <div class="container px-5 py-24 mx-auto">
                             <!-- ここにformを挿入してリダイレクトできるようにする -->
-                            {{-- リダイレクトできるようにする --}}
-                            <form method="post" action="{{ route('users.show', ['id' => $project_data->id]) }}">
+                            {{-- 選択したプロジェクトにリダイレクトできるように変更する --}}
+                            <form method="get" action="{{ route('users.show', ['id' => $project_data->first()->id]) }}">
                                 @csrf
                                 <div class="lg:w-2/3 w-full mx-auto overflow-auto">
                                     <table class="table-auto w-full text-left whitespace-no-wrap">
