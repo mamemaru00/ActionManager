@@ -94,4 +94,16 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Project::class);
     }
+
+    /**
+     * 更新処理
+     */
+    public function updateProject($request, $project)
+    {
+        $result = $project->fill([
+            'status' => $request->status
+        ])->save();
+
+        return $result;
+    }
 }

@@ -76,7 +76,13 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        //
+        //showと一緒
+        $project_data = Project::find($id);
+
+        dd($project_data);
+
+        return view('users.edit', 
+        compact('project_data'));
     }
 
     /**
@@ -88,7 +94,17 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        //プロジェクトのidを取得、statusを変更するよう処理を記述
+        $project_id = Project::find($id);
+        // $project_id->status = $request->status;
+        // dd($project_id);
+        // $project_id->save();
+
+        $project_id->update([  
+            "status" => $request->status,   
+        ]);  
+
+        return redirect()->route('users.index');
     }
 
     /**

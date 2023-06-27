@@ -17,6 +17,9 @@ use App\Http\Controllers\UserController;
 Route::prefix('users')-> middleware('auth')->group(function(){
     Route::get('index', [UserController::class, 'index'])->name('users.index');
     Route::get('show/{id}', [UserController::class, 'show'])->name('users.show');
+    Route::get('edit/{id}', [UserController::class, 'edit'])->name('users.edit');
+    //データの置き換えはputs
+    Route::put('update/{id}', [UserController::class, 'update'])->name('users.update');    
 });
 
 // Route::get('/', function () {
