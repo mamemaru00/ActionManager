@@ -87,7 +87,7 @@ class User extends Authenticatable
 
     public function office() 
     {
-        return $this->belongsTo(Office::class, 'affiliation_office', 'office_id');
+        return $this->belongsTo(Office::class);
     }
 
     public function project() 

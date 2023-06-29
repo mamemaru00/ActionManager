@@ -18,7 +18,7 @@ class ProjectUserTable extends Migration
             $table->foreignId('project_id');
             $table->foreignId('user_id');
 
-            // 外部キー制約
+            // 外部キー制約　物理的外部キー
             $table->foreign('project_id')
                 ->references('id')
                 ->on('projects')

@@ -15,11 +15,35 @@ class UserController extends Controller
     {
         //とりあえず、できる範囲で表示はできるようにしておく
         //今後修正すること
-        //中間テーブルのidを使用してUserテーブルのinteger('affiliation_office')とOfficeテーブルのoffice_idが合致する値を取得する
-        $office_data = Office::find(1);
+        //Userテーブルのoffice_idとOfficeテーブルのidが合致する値を取得する
+        //現在は、officeテーブル情報を取得するところまでは完了している
+        // $office_data = Office::find(1);
         // $office_data = User::with('office')->get();
         // $office_data = User::where('affiliation_office', "=", Office::where('id'))->get();
         // $office_data = Office::with('id')->find(1); 
+
+        //whereHasで 
+        // $office_data = User::query()
+        // ->whereHas('office', function (Builder $query){
+        //     $query->where('office_id', '=', Office::get());
+        // })
+        // ->get();
+        
+        //全て取得した
+        // $office_data = User::whereHas('users', function ($query) {
+		// 	$query->where('office_id', '=', Office::get());
+		//  })
+		//  ->with('user')
+		//  ->get();
+
+        $office_data = User::whereHas('office', function ($query) {
+            $query->whereIn('office_id', Office::pluck('id'));
+        })
+        ->with('office')
+        ->get();
+
+        // dd($office_data);
+        
 
         $project_data = Project::orderBy('sales_in_charge', 'desc')->get();
 
@@ -79,7 +103,7 @@ class UserController extends Controller
         //showと一緒
         $project_data = Project::find($id);
 
-        dd($project_data);
+        // dd($project_data);
 
         return view('users.edit', 
         compact('project_data'));
