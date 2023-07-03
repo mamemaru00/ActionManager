@@ -14,9 +14,12 @@
                             <!-- ここにformを挿入してリダイレクトできるようにする -->
                             {{-- updataにリダイレクトする --}}
                             {{-- <form method="post" action="users.index"> --}}
-                            <form method="post" action="{{ route('users.update', ['project' => $project_data->id]) }}">
+                            {{-- <form method="post" action="{{ route('users.update', ['project' => $project_data->id]) }}">
                                 @method('PUT')
+                                @csrf --}}
+                            <form method="post" action="{{ route('users.update', ['id' => $project_data->id]) }}">
                                 @csrf
+                                @method('PUT')
                                 <div class="lg:w-2/3 w-full mx-auto overflow-auto">
                                     <table class="table-auto w-full text-left whitespace-no-wrap">
                                         <thead>
@@ -30,9 +33,9 @@
                                             <tr>
                                                 <td class="px-4 py-3">現在〜〜{{ optional($project_data)->status }}〜〜</td>
 
-                                                <div class="form-check form-check-inline">
+                                                {{-- <div class="form-check form-check-inline">
                                                     <input type="radio" name="status" class="form-check-input"
-                                                        id="sta" value="有効化"
+                                                        id="status" value="有効化"
                                                         {{ old('status') == '有効化' ? 'checked' : '' }} checked>
                                                     <label for="status1" class="form-check-label">有効化</label>
                                                 </div>
@@ -41,7 +44,9 @@
                                                         id="status2" value="無効化"
                                                         {{ old('status') == '無効化' ? 'checked' : '' }}>
                                                     <label for="status2" class="form-check-label">無効化</label>
-                                                </div>
+                                                </div> --}}
+                                                <input type="text" name="status"
+                                                    value="{{ $project_data->status }}" /><br />
                                             </tr>
                                         </tbody>
                                     </table>

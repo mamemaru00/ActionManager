@@ -17,7 +17,7 @@ class ProjectTable extends Migration
             $table->id();
             $table->string('project_code')->comment('プロジェクトコード');
             $table->string('project_name');
-            $table->string('manager_code');
+            $table->integer('manager_code');
             $table->string('manager_name');
             $table->dateTime('sales_in_charge');
             $table->string('order_amount');

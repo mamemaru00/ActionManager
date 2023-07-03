@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Builder;
 use App\Models\User;
 use App\Models\Project;
 use App\Models\Office;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -42,12 +43,7 @@ class UserController extends Controller
         ->with('office')
         ->get();
 
-        // dd($office_data);
-        
-
         $project_data = Project::orderBy('sales_in_charge', 'desc')->get();
-
-        // dd($project_data);
 
         return view('users.index', 
         compact('office_data', 'project_data'));
@@ -86,8 +82,6 @@ class UserController extends Controller
         //プロジェクトテーブルからデータを持ってくる
         $project_data = Project::find($id);
 
-        // dd($project_data);
-
         return view('users.show', 
         compact('project_data'));
     }
@@ -100,10 +94,21 @@ class UserController extends Controller
      */
     public function edit($id)
     {
+        //担当者のみが見れるようにする
         //showと一緒
+        //userのidを取得する必要がある
+        $user_id = Auth::user();
+        // $user_id = User::find($id);
         $project_data = Project::find($id);
 
-        // dd($project_data);
+        //user_idと担当者コードが合致した時に見ることができる
+        if ($user_id->user_id === $project_data->manager_code) {
+            return redirect()->route('users.edit');
+        }
+        else {
+            abort(404);
+            return view('users.index');
+        }
 
         return view('users.edit', 
         compact('project_data'));
@@ -120,9 +125,6 @@ class UserController extends Controller
     {
         //プロジェクトのidを取得、statusを変更するよう処理を記述
         $project_id = Project::find($id);
-        // $project_id->status = $request->status;
-        // dd($project_id);
-        // $project_id->save();
 
         $project_id->update([  
             "status" => $request->status,   
