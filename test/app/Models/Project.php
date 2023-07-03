@@ -30,4 +30,16 @@ class Project extends Model
     {
         return $this->belongsToMany(User::class);
     }
+
+     /**
+     * 更新処理
+     */
+    public function updateProject($request, $project)
+    {
+        $result = $project->fill([
+            'status' => $request->status
+        ])->save();
+
+        return $result;
+    }
 }

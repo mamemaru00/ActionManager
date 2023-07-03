@@ -15,7 +15,6 @@ class OfficeTable extends Migration
     {
         Schema::create('offices', function (Blueprint $table) {
             $table->id();
-            $table->string('office_code')->comment('事業所コード');
             $table->string('office_name')->comment('事業名');
 
             $table->dateTime('created_at')->nullable();

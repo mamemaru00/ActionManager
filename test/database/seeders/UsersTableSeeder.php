@@ -20,7 +20,7 @@ class UsersTableSeeder extends Seeder
             'tanaka' => '田中'
         ];
 
-        $affiliation_office = [ 
+        $office_id = [ 
             'hayata' => '1',
             'yamada' => '2',
             'tanaka' => '3',
@@ -35,7 +35,7 @@ class UsersTableSeeder extends Seeder
         foreach($names as $email => $user){
             User::create([
                 'name' => $user,
-                'affiliation_office' =>$affiliation_office[$email], 
+                'office_id' =>$office_id[$email], 
                 'email' => $email.'@example.com',
                 'password' => bcrypt('xxx')
             ]);

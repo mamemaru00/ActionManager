@@ -18,22 +18,19 @@ class OfficeSeeder extends Seeder
         Office::create(
             [
                 'id' => '1',
-                'office_code' => 'AA1',
-                'office_name' => '事業所A',
+                'office_name' => '事業部A',
             ],
         );
         Office::create(
             [
                 'id' => '2',
-                'office_code' => 'BB2',
-                'office_name' => '事業所B',
+                'office_name' => '事業部B',
             ],
         );
         Office::create(
             [
                 'id' => '3',
-                'office_code' => 'CC3',
-                'office_name' => '事業所C',
+                'office_name' => '事業部C',
             ],
         );
     }

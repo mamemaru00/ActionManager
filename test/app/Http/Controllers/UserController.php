@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Builder;
 use App\Models\User;
 use App\Models\Project;
 use App\Models\Office;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -15,15 +16,34 @@ class UserController extends Controller
     {
         //とりあえず、できる範囲で表示はできるようにしておく
         //今後修正すること
-        //中間テーブルのidを使用してUserテーブルのinteger('affiliation_office')とOfficeテーブルのoffice_idが合致する値を取得する
-        $office_data = Office::find(1);
+        //Userテーブルのoffice_idとOfficeテーブルのidが合致する値を取得する
+        //現在は、officeテーブル情報を取得するところまでは完了している
+        // $office_data = Office::find(1);
         // $office_data = User::with('office')->get();
         // $office_data = User::where('affiliation_office', "=", Office::where('id'))->get();
         // $office_data = Office::with('id')->find(1); 
 
-        $project_data = Project::orderBy('sales_in_charge', 'desc')->get();
+        //whereHasで 
+        // $office_data = User::query()
+        // ->whereHas('office', function (Builder $query){
+        //     $query->where('office_id', '=', Office::get());
+        // })
+        // ->get();
+        
+        //全て取得した
+        // $office_data = User::whereHas('users', function ($query) {
+		// 	$query->where('office_id', '=', Office::get());
+		//  })
+		//  ->with('user')
+		//  ->get();
 
-        // dd($project_data);
+        $office_data = User::whereHas('office', function ($query) {
+            $query->whereIn('office_id', Office::pluck('id'));
+        })
+        ->with('office')
+        ->get();
+
+        $project_data = Project::orderBy('sales_in_charge', 'desc')->get();
 
         return view('users.index', 
         compact('office_data', 'project_data'));
@@ -62,8 +82,6 @@ class UserController extends Controller
         //プロジェクトテーブルからデータを持ってくる
         $project_data = Project::find($id);
 
-        // dd($project_data);
-
         return view('users.show', 
         compact('project_data'));
     }
@@ -76,7 +94,24 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        //
+        //担当者のみが見れるようにする
+        //showと一緒
+        //userのidを取得する必要がある
+        $user_id = Auth::user();
+        // $user_id = User::find($id);
+        $project_data = Project::find($id);
+
+        //user_idと担当者コードが合致した時に見ることができる
+        if ($user_id->user_id === $project_data->manager_code) {
+            return redirect()->route('users.edit');
+        }
+        else {
+            abort(404);
+            return view('users.index');
+        }
+
+        return view('users.edit', 
+        compact('project_data'));
     }
 
     /**
@@ -88,7 +123,14 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        //プロジェクトのidを取得、statusを変更するよう処理を記述
+        $project_id = Project::find($id);
+
+        $project_id->update([  
+            "status" => $request->status,   
+        ]);  
+
+        return redirect()->route('users.index');
     }
 
     /**
