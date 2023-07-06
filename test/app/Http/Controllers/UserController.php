@@ -101,13 +101,14 @@ class UserController extends Controller
         // $user_id = User::find($id);
         $project_data = Project::find($id);
 
+        $user_id = Auth::user()->id;
+        $project_data = Project::find($id);
+
         //user_idと担当者コードが合致した時に見ることができる
-        if ($user_id->user_id === $project_data->manager_code) {
-            return redirect()->route('users.edit');
-        }
-        else {
+        if ($user_id === $project_data->manager_code) {
+            return view('users.edit', compact('project_data'));
+        } else {
             abort(404);
-            return view('users.index');
         }
 
         return view('users.edit', 
