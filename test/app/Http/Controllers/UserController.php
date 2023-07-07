@@ -37,16 +37,16 @@ class UserController extends Controller
 		//  ->with('user')
 		//  ->get();
 
-        $office_data = User::whereHas('office', function ($query) {
+        $office_name = User::whereHas('office', function ($query) {
             $query->whereIn('office_id', Office::pluck('id'));
         })
         ->with('office')
         ->get();
 
-        $project_data = Project::orderBy('sales_in_charge', 'desc')->get();
+        $project_name = Project::orderBy('sales_in_charge', 'desc')->get();
 
         return view('users.index', 
-        compact('office_data', 'project_data'));
+        compact('office_name', 'project_name'));
     }
 
     /**
@@ -80,10 +80,10 @@ class UserController extends Controller
     {
         //プロジェクトが表示されないからわかり次第解決する
         //プロジェクトテーブルからデータを持ってくる
-        $project_data = Project::find($id);
+        $project_scope = Project::find($id);
 
         return view('users.show', 
-        compact('project_data'));
+        compact('project_scope'));
     }
 
     /**
@@ -94,25 +94,15 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        //担当者のみが見れるようにする
-        //showと一緒
-        //userのidを取得する必要がある
-        $user_id = Auth::user();
-        // $user_id = User::find($id);
-        $project_data = Project::find($id);
-
         $user_id = Auth::user()->id;
-        $project_data = Project::find($id);
+        $project_scope = Project::find($id);
 
         //user_idと担当者コードが合致した時に見ることができる
-        if ($user_id === $project_data->manager_code) {
-            return view('users.edit', compact('project_data'));
+        if ($user_id === $project_scope->manager_code) {
+            return view('users.edit', compact('project_scope'));
         } else {
             abort(404);
         }
-
-        return view('users.edit', 
-        compact('project_data'));
     }
 
     /**

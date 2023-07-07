@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ $project_data->project_name }}
+            {{ $project_scope->project_name }}
         </h2>
     </x-slot>
 
@@ -35,12 +35,12 @@
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td class="px-4 py-3">{{ optional($project_data)->manager_name }}</td>
-                                            <td class="px-4 py-3">{{ optional($project_data)->sales_in_charge }}
+                                            <td class="px-4 py-3">{{ optional($project_scope)->manager_name }}</td>
+                                            <td class="px-4 py-3">{{ optional($project_scope)->sales_in_charge }}
                                             </td>
-                                            <td class="px-4 py-3">{{ optional($project_data)->order_amount }}円</td>
-                                            <td class="px-4 py-3">{{ optional($project_data)->order_date }}</td>
-                                            <td class="px-4 py-3">{{ optional($project_data)->status }}</td>
+                                            <td class="px-4 py-3">{{ optional($project_scope)->order_amount }}円</td>
+                                            <td class="px-4 py-3">{{ optional($project_scope)->order_date }}</td>
+                                            <td class="px-4 py-3">{{ optional($project_scope)->status }}</td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -50,9 +50,9 @@
                                 {{-- ボタンを遷移できるように変更する --}}
                                 <button type="button" onclick="location.href='{{ route('users.index') }}'"
                                     class="flex ml-auto text-white bg-red-500 border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded">戻る</button>
-                                <a href="{{ route('users.edit', ['id' => $project_data->id]) }}">編集</a>
+                                <a href="{{ route('users.edit', ['id' => $project_scope->id]) }}">編集</a>
                             </div>
-                            
+
                         </div>
                     </section>
                 </div>

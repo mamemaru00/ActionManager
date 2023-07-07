@@ -3,8 +3,8 @@
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             {{-- {{ $office_data->office_name }} --}}
             {{-- {{ $office_data->office->office_name }} --}}
-            @foreach ($office_data as $user)
-                {{ $user->office->office_name }}
+            @foreach ($office_name as $office)
+                {{ $office->office->office_name }}
             @endforeach
         </h2>
     </x-slot>
@@ -27,7 +27,7 @@
                                             </th>
                                         </tr>
                                     </thead>
-                                    @foreach ($project_data as $projects)
+                                    @foreach ($project_name as $projects)
                                         <tbody>
                                             <tr>
                                                 <td class="px-4 py-3">{{ $projects->project_name }}</td>
