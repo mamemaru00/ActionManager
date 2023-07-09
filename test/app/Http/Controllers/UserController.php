@@ -56,7 +56,8 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        //新規作成画面を表示
+        return view('users.create');
     }
 
     /**
@@ -67,7 +68,28 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //登録処理を作成する
+        // Project::create([
+        //     'project_name' => $request->project_name,
+        //   ]);
+
+        // Studentオブジェクト生成
+        $projects = new Project;
+        
+        // 値の登録
+        //処理を記載していく
+        $projects->project_code = $request->project_code;
+        $projects->project_name = $request->project_name;
+        $projects->project_name = $request->project_name;
+        $projects->project_name = $request->project_name;
+        $projects->project_name = $request->project_name;    
+        $projects->project_name = $request->project_name;
+        $projects->project_name = $request->project_name;
+        
+        // 保存
+        $projects->save();
+   
+        return redirect()->route('users.index');
     }
 
     /**
