@@ -11,7 +11,7 @@
                 <div class="p-6 bg-white border-b border-gray-200">
                     <section class="text-gray-600 body-font">
                         <div class="container px-5 py-24 mx-auto">
-                            <form method="post" action="{{ route('users.update', ['id' => $project_scope->id]) }}">
+                            <form method="post" action="{{ route('users.update', ['id' => $project_data->id]) }}">
                                 @csrf
                                 @method('PUT')
                                 <div class="lg:w-2/3 w-full mx-auto overflow-auto">
@@ -25,16 +25,27 @@
                                         </thead>
                                         <tbody>
                                             <tr>
-                                                <td class="px-4 py-3">現在〜〜{{ optional($project_scope)->status }}〜〜</td>
-                                                <input type="text" name="status"
-                                                    value="{{ $project_scope->status }}" /><br />
+                                                <td class="px-4 py-3">現在〜〜{{ $project_data->status }}〜〜</td>
+                                                <td>
+                                                    <div class="form-check form-check-inline">
+                                                        <input type="radio" name="status" class="form-check-input"
+                                                            id="status1" value="有効化"
+                                                            {{ $project_data->status == '有効化' ? 'checked' : '' }}>
+                                                        <label for="status1" class="form-check-label">有効化</label>
+                                                    </div>
+                                                    <div class="form-check form-check-inline">
+                                                        <input type="radio" name="status" class="form-check-input"
+                                                            id="status2" value="無効化"
+                                                            {{ $project_data->status == '無効化' ? 'checked' : '' }}>
+                                                        <label for="status2" class="form-check-label">無効化</label>
+                                                    </div>
+                                                </td>
                                             </tr>
                                         </tbody>
                                     </table>
                                 </div>
 
                                 <div class="flex pl-4 mt-4 lg:w-2/3 w-full mx-auto">
-                                    {{-- ボタンを遷移できるように変更する --}}
                                     <button type="button" onclick="location.href='{{ route('users.index') }}'"
                                         class="flex ml-auto text-white bg-red-500 border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded">戻る</button>
                                     <button type="submit"

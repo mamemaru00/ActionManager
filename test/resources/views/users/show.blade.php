@@ -11,7 +11,6 @@
                 <div class="p-6 bg-white border-b border-gray-200">
                     <section class="text-gray-600 body-font">
                         <div class="container px-5 py-24 mx-auto">
-                            <!-- ここにformを挿入してリダイレクトできるようにする -->
                             <div class="lg:w-2/3 w-full mx-auto overflow-auto">
                                 <table class="table-auto w-full text-left whitespace-no-wrap">
                                     <thead>
@@ -35,22 +34,26 @@
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td class="px-4 py-3">{{ optional($project_scope)->manager_name }}</td>
-                                            <td class="px-4 py-3">{{ optional($project_scope)->sales_in_charge }}
+                                            <td class="px-4 py-3">{{ $project_scope->manager_name }}</td>
+                                            <td class="px-4 py-3">
+                                                {{ date('Y年m月d日 H時i分', strtotime($project_scope->sales_in_charge)) }}
                                             </td>
-                                            <td class="px-4 py-3">{{ optional($project_scope)->order_amount }}円</td>
-                                            <td class="px-4 py-3">{{ optional($project_scope)->order_date }}</td>
-                                            <td class="px-4 py-3">{{ optional($project_scope)->status }}</td>
+                                            <td class="px-4 py-3">{{ number_format($project_scope->order_amount) }}円
+                                            </td>
+                                            <td class="px-4 py-3">
+                                                {{ date('Y年m月d日 H時i分', strtotime($project_scope->order_date)) }}</td>
+                                            <td class="px-4 py-3">{{ $project_scope->status }}</td>
                                         </tr>
                                     </tbody>
                                 </table>
                             </div>
 
                             <div class="flex pl-4 mt-4 lg:w-2/3 w-full mx-auto">
-                                {{-- ボタンを遷移できるように変更する --}}
                                 <button type="button" onclick="location.href='{{ route('users.index') }}'"
                                     class="flex ml-auto text-white bg-red-500 border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded">戻る</button>
-                                <a href="{{ route('users.edit', ['id' => $project_scope->id]) }}">編集</a>
+                                <button type="button"
+                                    onclick="location.href='{{ route('users.edit', ['id' => $project_scope->id]) }}'"
+                                    class="ml-3 text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded">編集</button>
                             </div>
 
                         </div>
