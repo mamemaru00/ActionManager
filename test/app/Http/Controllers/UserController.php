@@ -26,9 +26,9 @@ class UserController extends Controller
 
     public function store(Request $request)
     {
-        $projects = new Project;
+        $project_creation = new Project;
 
-        $projects->fill($request->all())->save();
+        $project_creation->fill($request->all())->save();
    
         return redirect()->route('users.index');
     }
