@@ -21,7 +21,6 @@ class UserController extends Controller
 
     public function create()
     {
-        //新規作成画面を表示
         return view('users.create');
     }
 
