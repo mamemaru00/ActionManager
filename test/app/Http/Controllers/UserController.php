@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Project;
 use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
 
 class UserController extends Controller
 {
@@ -26,26 +27,9 @@ class UserController extends Controller
 
     public function store(Request $request)
     {
-        //登録処理を作成する
-        // Project::create([
-        //     'project_name' => $request->project_name,
-        //   ]);
-
-        // Studentオブジェクト生成
         $projects = new Project;
-        
-        // 値の登録
-        //処理を記載していく
-        $projects->project_code = $request->project_code;
-        $projects->project_name = $request->project_name;
-        $projects->project_name = $request->project_name;
-        $projects->project_name = $request->project_name;
-        $projects->project_name = $request->project_name;    
-        $projects->project_name = $request->project_name;
-        $projects->project_name = $request->project_name;
-        
-        // 保存
-        $projects->save();
+
+        $projects->fill($request->all())->save();
    
         return redirect()->route('users.index');
     }
