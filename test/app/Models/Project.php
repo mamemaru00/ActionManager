@@ -18,7 +18,8 @@ class Project extends Model
         'sales_in_charge',
         'order_amount',
         'order_date',
-        'status'
+        'status',
+        'created_at'
     ];
 
     public function users()

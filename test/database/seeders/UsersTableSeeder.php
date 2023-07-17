@@ -20,22 +20,16 @@ class UsersTableSeeder extends Seeder
             'tanaka' => '田中'
         ];
 
-        $office_id = [ 
+        $offices = [ 
             'hayata' => '1',
             'yamada' => '2',
             'tanaka' => '3',
         ];
 
-        // $office_code = [
-        //     'hayata' => 'AA1',
-        //     'yamada' => 'BB2',
-        //     'tanaka' => 'CC3',
-        // ];
-
         foreach($names as $email => $user){
             User::create([
                 'name' => $user,
-                'office_id' =>$office_id[$email], 
+                'office_id' =>$offices[$email], 
                 'email' => $email.'@example.com',
                 'password' => bcrypt('xxx')
             ]);

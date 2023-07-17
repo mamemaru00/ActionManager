@@ -18,7 +18,9 @@
                                     <table class="table-auto w-full text-left whitespace-no-wrap">
                                         <thead>
                                             <tr>
-                                                <th class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">有効化・無効化</th>
+                                                <th
+                                                    class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">
+                                                    有効化・無効化</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -26,11 +28,15 @@
                                                 <td class="px-4 py-3">現在〜〜{{ $project_data->status }}〜〜</td>
                                                 <td>
                                                     <div class="form-check form-check-inline">
-                                                        <input type="radio" name="status" class="form-check-input" id="status1" value="有効化" {{ $project_data->status == '有効化' ? 'checked' : '' }}>
+                                                        <input type="radio" name="status" class="form-check-input"
+                                                            id="status1" value="有効化"
+                                                            {{ $project_data->status == '有効化' ? 'checked' : '' }}>
                                                         <label for="status1" class="form-check-label">有効化</label>
                                                     </div>
                                                     <div class="form-check form-check-inline">
-                                                        <input type="radio" name="status" class="form-check-input" id="status2" value="無効化" {{ $project_data->status == '無効化' ? 'checked' : '' }}>
+                                                        <input type="radio" name="status" class="form-check-input"
+                                                            id="status2" value="無効化"
+                                                            {{ $project_data->status == '無効化' ? 'checked' : '' }}>
                                                         <label for="status2" class="form-check-label">無効化</label>
                                                     </div>
                                                 </td>

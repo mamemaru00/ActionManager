@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Project;
 use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
 
 class UserController extends Controller
 {
@@ -20,19 +21,23 @@ class UserController extends Controller
 
     public function create()
     {
-        //
+        return view('users.create');
     }
 
     public function store(Request $request)
     {
-        //
+        $project_creation = new Project;
+
+        $project_creation->fill($request->all())->save();
+   
+        return redirect()->route('users.index');
     }
 
     public function show($id)
     {
-        $project_data = Project::findOrFail($id);
+        $project_scope = Project::findOrFail($id);
 
-        return view('users.show', compact('project_data'));
+        return view('users.show', compact('project_scope'));
     }
 
     public function edit($id)
