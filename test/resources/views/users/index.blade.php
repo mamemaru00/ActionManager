@@ -30,9 +30,6 @@
                                                 <td class="px-4 py-3">{{ $projects->project_name }}</td>
                                                 <td class="w-10 text-center">
                                                     <a href="{{ route('users.show', ['id' => $projects->id]) }}">詳細</a>
-                                                    {{-- 削除機能追加する --}}
-                                                    <a
-                                                        href="{{ route('users.destroy', ['id' => $projects->id]) }}">削除</a>
                                                 </td>
                                             </tr>
                                         @endforeach
