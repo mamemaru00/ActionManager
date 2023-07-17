@@ -16,15 +16,13 @@ use App\Http\Controllers\UserController;
 
 Route::prefix('users')-> middleware('auth')->group(function(){
     Route::get('index', [UserController::class, 'index'])->name('users.index');
-
-    //新規作成表示
     Route::get('create', [UserController::class, 'create'])->name('users.create');
-    //新規作成処理
     Route::post('store', [UserController::class, 'store'])->name('users.store');
-
     Route::get('show/{id}', [UserController::class, 'show'])->name('users.show');
     Route::get('edit/{id}', [UserController::class, 'edit'])->name('users.edit');
-    Route::put('update/{id}', [UserController::class, 'update'])->name('users.update');    
+    Route::put('update/{id}', [UserController::class, 'update'])->name('users.update');   
+    //削除機能
+    Route::get('destroy/{id}', [UserController::class, 'destroy'])->name('users.destroy'); 
 });
 
 //プロジェクトのルートを作成する

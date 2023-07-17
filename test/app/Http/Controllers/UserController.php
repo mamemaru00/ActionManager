@@ -65,6 +65,12 @@ class UserController extends Controller
 
     public function destroy($id)
     {
-        //
+        //削除処理
+        // Projectsテーブルから指定のIDのレコード1件を取得
+        $project_destroy = Project::find($id);
+        // レコードを削除
+        $project_destroy->delete();
+        // 削除したら一覧画面にリダイレクト
+        return redirect()->route('users.index');
     }
 }
