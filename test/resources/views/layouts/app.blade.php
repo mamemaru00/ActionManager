@@ -19,7 +19,11 @@
 
 <body class="font-sans antialiased">
     <div class="min-h-screen bg-gray-100">
-        @include('layouts.navigation')
+        @if (auth(('admin')->user()))
+            @include('layouts.admin-navigation')
+        @else
+            @include('layouts.navigation')
+        @endif
 
         <!-- Page Heading -->
         <header class="bg-white shadow">
