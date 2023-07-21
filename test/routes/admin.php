@@ -1,14 +1,30 @@
 <?php
 
-use App\Http\Controllers\User\Auth\AuthenticatedSessionController;
-use App\Http\Controllers\User\Auth\ConfirmablePasswordController;
-use App\Http\Controllers\User\Auth\EmailVerificationNotificationController;
-use App\Http\Controllers\User\Auth\EmailVerificationPromptController;
-use App\Http\Controllers\User\Auth\NewPasswordController;
-use App\Http\Controllers\User\Auth\PasswordResetLinkController;
-use App\Http\Controllers\User\Auth\RegisteredUserController;
-use App\Http\Controllers\User\Auth\VerifyEmailController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\Admin\Auth\AuthenticatedSessionController;
+use App\Http\Controllers\Admin\Auth\ConfirmablePasswordController;
+use App\Http\Controllers\Admin\Auth\EmailVerificationNotificationController;
+use App\Http\Controllers\Admin\Auth\EmailVerificationPromptController;
+use App\Http\Controllers\Admin\Auth\NewPasswordController;
+use App\Http\Controllers\Admin\Auth\PasswordResetLinkController;
+use App\Http\Controllers\Admin\Auth\RegisteredUserController;
+use App\Http\Controllers\Auth\VerifyEmailController;
+
+/*
+|--------------------------------------------------------------------------
+| Web Routes
+|--------------------------------------------------------------------------
+|
+| Here is where you can register web routes for your application. These
+| routes are loaded by the RouteServiceProvider within a group which
+| contains the "web" middleware group. Now create something great!
+|
+*/
+
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth:admin'])->name('dashboard');
 
 Route::middleware('guest')->group(function () {
     Route::get('register', [RegisteredUserController::class, 'create'])
@@ -34,7 +50,7 @@ Route::middleware('guest')->group(function () {
                 ->name('password.update');
 });
 
-Route::middleware('auth')->group(function () {
+Route::middleware('auth:admin')->group(function () {
     Route::get('verify-email', [EmailVerificationPromptController::class, '__invoke'])
                 ->name('verification.notice');
 
