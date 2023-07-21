@@ -29,7 +29,7 @@
                                             <tr>
                                                 <td class="px-4 py-3">{{ $projects->project_name }}</td>
                                                 <td class="w-10 text-center">
-                                                    <a href="{{ route('users.show', ['id' => $projects->id]) }}">詳細</a>
+                                                    <a href="{{ route('user.show', ['id' => $projects->id]) }}">詳細</a>
                                                 </td>
                                             </tr>
                                         @endforeach

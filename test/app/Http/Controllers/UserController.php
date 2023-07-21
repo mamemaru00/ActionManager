@@ -16,12 +16,12 @@ class UserController extends Controller
         $office_name = $user->office->office_name;
         $project_data = Project::orderBy('sales_in_charge', 'desc')->get();
 
-        return view('users.index', compact('office_name', 'project_data'));
+        return view('user.index', compact('office_name', 'project_data'));
     }
 
     public function create()
     {
-        return view('users.create');
+        return view('user.create');
     }
 
     public function store(Request $request)
@@ -30,14 +30,14 @@ class UserController extends Controller
 
         $project_creation->fill($request->all())->save();
    
-        return redirect()->route('users.index');
+        return redirect()->route('user.index');
     }
 
     public function show($id)
     {
         $project_scope = Project::findOrFail($id);
 
-        return view('users.show', compact('project_scope'));
+        return view('user.show', compact('project_scope'));
     }
 
     public function edit($id)
@@ -49,7 +49,7 @@ class UserController extends Controller
             abort(404);
         }
 
-        return view('users.edit', compact('project_data'));
+        return view('user.edit', compact('project_data'));
     }
 
     public function update(Request $request, $id)
@@ -60,7 +60,7 @@ class UserController extends Controller
             "status" => $request->status,
         ]);
 
-        return redirect()->route('users.index');
+        return redirect()->route('user.index');
     }
 
     public function destroy($id)
@@ -71,6 +71,6 @@ class UserController extends Controller
         // レコードを削除
         $project_destroy->delete();
         // 削除したら一覧画面にリダイレクト
-        return redirect()->route('users.index');
+        return redirect()->route('user.index');
     }
 }
