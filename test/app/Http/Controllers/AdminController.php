@@ -6,6 +6,13 @@ use Illuminate\Http\Request;
 
 class AdminController extends Controller
 {
+
+    //他の権限でのログインを制限
+    public function __construct()
+    {
+        $this->middleware('auth:admin');
+    }
+
     /**
      * Display a listing of the resource.
      *
