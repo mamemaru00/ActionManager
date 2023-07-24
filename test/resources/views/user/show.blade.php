@@ -49,13 +49,13 @@
                             </div>
 
                             <div class="flex pl-4 mt-4 lg:w-2/3 w-full mx-auto">
-                                <button type="button" onclick="location.href='{{ route('users.index') }}'"
+                                <button type="button" onclick="location.href='{{ route('user.index') }}'"
                                     class="flex ml-auto text-white bg-gray-600 border-0 py-2 px-4 focus:outline-none hover:bg-gray-700 rounded text-lg">戻る</button>
                                 <button type="button"
-                                    onclick="location.href='{{ route('users.edit', ['id' => $project_scope->id]) }}'"
+                                    onclick="location.href='{{ route('user.edit', ['id' => $project_scope->id]) }}'"
                                     class="ml-3 text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded">編集</button>
                                 <button type="button"
-                                    onclick="location.href='{{ route('users.destroy', ['id' => $project_scope->id]) }}'"
+                                    onclick="location.href='{{ route('user.destroy', ['id' => $project_scope->id]) }}'"
                                     class="ml-3 text-white bg-red-500 border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded">削除</button>
                             </div>
 

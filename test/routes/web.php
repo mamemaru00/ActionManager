@@ -15,14 +15,14 @@ use App\Http\Controllers\UserController;
 */
 
 Route::prefix('user')-> middleware('auth:users')->group(function(){
-    Route::get('index', [UserController::class, 'index'])->name('user.index');
-    Route::get('create', [UserController::class, 'create'])->name('user.create');
-    Route::post('store', [UserController::class, 'store'])->name('user.store');
-    Route::get('show/{id}', [UserController::class, 'show'])->name('user.show');
-    Route::get('edit/{id}', [UserController::class, 'edit'])->name('user.edit');
-    Route::put('update/{id}', [UserController::class, 'update'])->name('user.update');   
+    Route::get('index', [UserController::class, 'index'])->name('index');
+    Route::get('create', [UserController::class, 'create'])->name('create');
+    Route::post('store', [UserController::class, 'store'])->name('store');
+    Route::get('show/{id}', [UserController::class, 'show'])->name('show');
+    Route::get('edit/{id}', [UserController::class, 'edit'])->name('edit');
+    Route::put('update/{id}', [UserController::class, 'update'])->name('update');   
     //削除機能
-    Route::get('destroy/{id}', [UserController::class, 'destroy'])->name('user.destroy'); 
+    Route::get('destroy/{id}', [UserController::class, 'destroy'])->name('destroy'); 
 });
 
 //プロジェクトのルートを作成する

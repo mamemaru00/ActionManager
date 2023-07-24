@@ -13,7 +13,7 @@
                         <div class="container px-5 py-24 mx-auto">
                             <div class="lg:w-2/3 w-full mx-auto overflow-auto">
                                 <div class="table-auto w-full text-left whitespace-no-wrap">
-                                    <form action="{{ route('users.store') }}" method="post">
+                                    <form action="{{ route('user.store') }}" method="post">
                                         @csrf
                                         <div class="relative mb-4">
                                             <label for="project_code"

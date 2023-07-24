@@ -11,7 +11,7 @@
                 <div class="p-6 bg-white border-b border-gray-200">
                     <section class="text-gray-600 body-font">
                         <div class="container px-5 py-24 mx-auto">
-                            <form method="post" action="{{ route('users.update', ['id' => $project_data->id]) }}">
+                            <form method="post" action="{{ route('user.update', ['id' => $project_data->id]) }}">
                                 @csrf
                                 @method('PUT')
                                 <div class="lg:w-2/3 w-full mx-auto overflow-auto">
@@ -46,7 +46,7 @@
                                 </div>
 
                                 <div class="flex pl-4 mt-4 lg:w-2/3 w-full mx-auto">
-                                    <button type="button" onclick="location.href='{{ route('users.index') }}'"
+                                    <button type="button" onclick="location.href='{{ route('user.index') }}'"
                                         class="flex ml-auto text-white bg-red-500 border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded">戻る</button>
                                     <button type="submit"
                                         class="flex ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded">登録する</button>
