@@ -15,6 +15,9 @@
                     <x-nav-link :href="route('admin.index')" :active="request()->routeIs('admin.index')">
                         アカウント一覧
                     </x-nav-link>
+                    <x-nav-link :href="route('admin.create')" :active="request()->routeIs('admin.create')">
+                        アカウント作成
+                    </x-nav-link>
                 </div>
             </div>
 
@@ -72,7 +75,10 @@
     <div :class="{ 'block': open, 'hidden': !open }" class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
             <x-responsive-nav-link :href="route('admin.index')" :active="request()->routeIs('admin.index')">
-                {{ __('Dashboard') }}
+                アカウント一覧
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('admin.create')" :active="request()->routeIs('admin.create')">
+                アカウント新規作成
             </x-responsive-nav-link>
         </div>
 

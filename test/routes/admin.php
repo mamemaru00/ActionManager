@@ -24,6 +24,8 @@ use App\Http\Controllers\Admin\Auth\VerifyEmailController;
 
 Route::middleware('auth:admin')->group(function(){
     Route::get('index', [AdminController::class, 'index'])->name('index');
+    Route::get('create', [AdminController::class, 'create'])->name('create');
+    Route::post('store', [AdminController::class, 'store'])->name('store');
 });
 
 Route::get('dashboard', function () {

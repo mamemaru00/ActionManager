@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class AdminController extends Controller
 {
@@ -26,12 +27,22 @@ class AdminController extends Controller
 
     public function create()
     {
-        //
+        //新規作成画面の表示
+        return view('admin.create');
     }
 
     public function store(Request $request)
     {
-        //
+        //新規作成画面のフォームデータ保存
+        $user_creation = new User;
+
+        $user_creation->fill($request->all())->save();
+
+        $request->user()->fill([
+            'password' => Hash::make($request->newPassword)
+        ])->save();
+   
+        return redirect()->route('admin.index');
     }
 
     public function show($id)
