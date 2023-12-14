@@ -6,35 +6,33 @@ use GuzzleHttp\Client;
 
 class ChatWorkService
 {
+    private $body = "";
     private $client;
-    private $body;
+    private $token;
+    private $url;
 
     public function __construct()
     {
         $this->client = new Client();
-    }
-
-    public function addMessage($body)
-    {
-        $token   = config('chat_work.chat_work_token');
+        $this->token = config('chat_work.chat_work_token');
         $room_id = config('chat_work.chat_work_room_id');
-        $url     = "https://api.chatwork.com/v2/rooms/{$room_id}/messages";
-        $this->body = $body;
-
-        return $this->sendMessage($url, $token);
+        $this->url = "https://api.chatwork.com/v2/rooms/{$room_id}/messages";
     }
 
-    public function sendMessage($url, $token)
+    public function addMessage($message)
+    {
+        $this->body .= $message . "\n";
+    }
+
+    public function sendMessage()
     {
         try {
-            $response = $this->client->post($url, [
-                'headers'     => ['X-ChatWorkToken' => $token],
+            return $this->client->post($this->url, [
+                'headers'     => ['X-ChatWorkToken' => $this->token],
                 'form_params' => ['body' => $this->body]
             ]);
-            return $response;
         } catch (\Throwable $e) {
             info($e->getMessage());
-            return null;
         }
     }
 }
