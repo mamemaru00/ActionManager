@@ -2,7 +2,7 @@
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             {{-- 事業所名を直接コントローラから渡す --}}
-            {{ $office_name ?? '' }}
+            {{ $officeName ?? '' }}
         </h2>
     </x-slot>
 
@@ -25,7 +25,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($project_data as $projects)
+                                        @foreach ($projectData as $projects)
                                             <tr>
                                                 <td class="px-4 py-3">{{ $projects->project_name }}</td>
                                                 <td class="w-10 text-center">

@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ $project_scope->project_name }}
+            {{ $projectScope->project_name }}
         </h2>
     </x-slot>
 
@@ -34,15 +34,15 @@
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td class="px-4 py-3">{{ $project_scope->manager_name }}</td>
+                                            <td class="px-4 py-3">{{ $projectScope->manager_name }}</td>
                                             <td class="px-4 py-3">
-                                                {{ date('Y年m月d日 H時i分', strtotime($project_scope->sales_in_charge)) }}
+                                                {{ date('Y年m月d日 H時i分', strtotime($projectScope->sales_in_charge)) }}
                                             </td>
-                                            <td class="px-4 py-3">{{ number_format($project_scope->order_amount) }}円
+                                            <td class="px-4 py-3">{{ number_format($projectScope->order_amount) }}円
                                             </td>
                                             <td class="px-4 py-3">
-                                                {{ date('Y年m月d日 H時i分', strtotime($project_scope->order_date)) }}</td>
-                                            <td class="px-4 py-3">{{ $project_scope->status }}</td>
+                                                {{ date('Y年m月d日 H時i分', strtotime($projectScope->order_date)) }}</td>
+                                            <td class="px-4 py-3">{{ $projectScope->status }}</td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -52,10 +52,10 @@
                                 <button type="button" onclick="location.href='{{ route('user.index') }}'"
                                     class="flex ml-auto text-white bg-gray-600 border-0 py-2 px-4 focus:outline-none hover:bg-gray-700 rounded text-lg">戻る</button>
                                 <button type="button"
-                                    onclick="location.href='{{ route('user.edit', ['id' => $project_scope->id]) }}'"
+                                    onclick="location.href='{{ route('user.edit', ['id' => $projectScope->id]) }}'"
                                     class="ml-3 text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded">編集</button>
                                 <button type="button"
-                                    onclick="location.href='{{ route('user.destroy', ['id' => $project_scope->id]) }}'"
+                                    onclick="location.href='{{ route('user.destroy', ['id' => $projectScope->id]) }}'"
                                     class="ml-3 text-white bg-red-500 border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded">削除</button>
                             </div>
 

@@ -34,9 +34,9 @@ class AdminController extends Controller
     public function store(Request $request)
     {
         //新規作成画面のフォームデータ保存
-        $user_creation = new User;
+        $userCreation = new User;
 
-        $user_creation->fill($request->all())->save();
+        $userCreation->fill($request->all())->save();
 
         $request->user()->fill([
             'password' => Hash::make($request->newPassword)
