@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Project;
 use Illuminate\Support\Facades\Auth;
-use Carbon\Carbon;
+use App\Services\ChatWorkService;
 
 class UserController extends Controller
 {
@@ -26,9 +26,18 @@ class UserController extends Controller
 
     public function store(Request $request)
     {
-        $project_creation = new Project;
+        try {
+            $project_creation = new Project;
+            $project_creation->fill($request->all())->save();
 
-        $project_creation->fill($request->all())->save();
+            // ChatWorkServiceのcreate_chat_work_message_postメソッドを呼び出す
+            $chat_work_service = new ChatWorkService;
+            $body    = "新規に{$request->project_name}が作成されました。";
+            $chat_work_service->create_chat_work_message_post($body);
+
+        } catch (\Exception $e) {
+            info($e->getMessage());
+        }
    
         return redirect()->route('user.index');
     }

@@ -18,7 +18,7 @@ class ProjectTableSeeder extends Seeder
             [
                 'id' => '1',
                 'project_code' => '000001',
-                'project_name' => 'ほげ案件',
+                'project_name' => 'スポーツ用具案件',
                 'manager_code' => '1',
                 'manager_name' => '早田',
                 'sales_in_charge' => '2024/01/01',
