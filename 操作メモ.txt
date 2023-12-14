@@ -1,0 +1,9 @@
+
+http://localhost/login
+
+テストアカウント
+hayata@example.com
+Xxx
+
+DB
+http://localhost:8081/

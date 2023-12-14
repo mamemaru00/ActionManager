@@ -6,71 +6,75 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Project;
 use Illuminate\Support\Facades\Auth;
-use Carbon\Carbon;
+use App\Services\ChatWorkService;
 
 class UserController extends Controller
 {
     public function index()
     {
         $user = Auth::user();
-        $office_name = $user->office->office_name;
-        $project_data = Project::orderBy('sales_in_charge', 'desc')->get();
+        $officeName = $user->office->officeName;
+        $projectData = Project::orderBy('sales_in_charge', 'desc')->get();
 
-        return view('users.index', compact('office_name', 'project_data'));
+        return view('user.index', compact('officeName', 'projectData'));
     }
 
     public function create()
     {
-        return view('users.create');
+        return view('user.create');
     }
 
     public function store(Request $request)
     {
-        $project_creation = new Project;
+        try {
+            $projectCreation = new Project;
+            $projectCreation->fill($request->all())->save();
 
-        $project_creation->fill($request->all())->save();
+            // ChatWorkServiceのaddMessageメソッドを呼び出す
+            $body = "新規に{$request->project_name}が作成されました。";
+            (new ChatWorkService)->addMessage($body);
+
+        } catch (\Exception $e) {
+            info($e->getMessage());
+        }
    
-        return redirect()->route('users.index');
+        return redirect()->route('user.index');
     }
 
     public function show($id)
     {
-        $project_scope = Project::findOrFail($id);
+        $projectScope = Project::findOrFail($id);
 
-        return view('users.show', compact('project_scope'));
+        return view('user.show', compact('projectScope'));
     }
 
     public function edit($id)
     {
-        $user_id = Auth::user()->id;
-        $project_data = Project::findOrFail($id);
+        $userId = Auth::user()->id;
+        $projectData = Project::findOrFail($id);
 
-        if ($user_id !== $project_data->manager_code) {
+        if ($userId !== $projectData->manager_code) {
             abort(404);
         }
 
-        return view('users.edit', compact('project_data'));
+        return view('user.edit', compact('projectData'));
     }
 
     public function update(Request $request, $id)
     {
         $project = Project::findOrFail($id);
-
         $project->update([
             "status" => $request->status,
         ]);
 
-        return redirect()->route('users.index');
+        return redirect()->route('user.index');
     }
 
     public function destroy($id)
     {
-        //削除処理
-        // Projectsテーブルから指定のIDのレコード1件を取得
-        $project_destroy = Project::find($id);
-        // レコードを削除
-        $project_destroy->delete();
-        // 削除したら一覧画面にリダイレクト
-        return redirect()->route('users.index');
+        // Projectsテーブルから指定のIDのレコード1件を取得して削除
+        $projectDestroy = Project::find($id);
+        $projectDestroy->delete();
+        return redirect()->route('user.index');
     }
 }
