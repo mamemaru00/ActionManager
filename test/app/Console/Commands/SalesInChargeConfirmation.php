@@ -44,11 +44,11 @@ class SalesInChargeConfirmation extends Command
         $projectSalesInChargeData = Project::orderBy('sales_in_charge', 'asc')->get(); 
 
         // プロジェクトテーブルから取得したデータをforeachで回して、メッセージを作成、送信する
+        $ChatWorkService = new ChatWorkService();
+        $ChatWorkService->addMessage('【納期が近いプロジェクトリスト】');
         foreach ($projectSalesInChargeData as $projectSalesInCharge) {
-            $projectCreateMessage = new ChatWorkService();
-            $body = "{$projectSalesInCharge->sales_in_charge}:{$projectSalesInCharge->project_name}";
-            $projectCreateMessage->addMessage($body);
-            $projectCreateMessage->sendMessage();
+            $ChatWorkService->addMessage("{$projectSalesInCharge->sales_in_charge}:{$projectSalesInCharge->project_name}");
         }
+        $ChatWorkService->sendMessage();
     }
 }

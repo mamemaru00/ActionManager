@@ -27,10 +27,11 @@ class ChatWorkService
     public function sendMessage()
     {
         try {
-            return $this->client->post($this->url, [
+            $this->client->post($this->url, [
                 'headers'     => ['X-ChatWorkToken' => $this->token],
                 'form_params' => ['body' => $this->body]
             ]);
+            $this->body = "";
         } catch (\Throwable $e) {
             info($e->getMessage());
         }
