@@ -26,4 +26,9 @@ class Project extends Model
     {
         return $this->hasMany(User::class, 'manager_code', 'manager_code');
     }
+
+    public function tradingCompany() 
+    {
+        return $this->belongsTo(TradingCompany::class);
+    }
 }
