@@ -31,8 +31,10 @@ class UserController extends Controller
             $projectCreation->fill($request->all())->save();
 
             // ChatWorkServiceのaddMessageメソッドを呼び出す
+            $projectCreateMessage = new ChatWorkService();
             $body = "新規に{$request->project_name}が作成されました。";
-            (new ChatWorkService)->addMessage($body);
+            $projectCreateMessage->addMessage($body);
+            $projectCreateMessage->sendMessage();
 
         } catch (\Exception $e) {
             info($e->getMessage());
