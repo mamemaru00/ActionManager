@@ -56,8 +56,8 @@
                                     onclick="location.href='{{ route('user.edit', ['id' => $projectScope->id]) }}'"
                                     class="ml-3 text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded">編集</button>
                                 <button type="button"
-                                    onclick="location.href='{{ route('user.destroy', ['id' => $projectScope->id]) }}'"
-                                    class="ml-3 text-white bg-red-500 border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded">削除</button>
+                                    class="ml-3 text-white bg-red-500 border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded btn-dell"
+                                    data-id="{{ $projectScope->id }}">削除</button>
                             </div>
 
                         </div>

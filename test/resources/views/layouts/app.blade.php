@@ -38,6 +38,21 @@
             {{ $slot }}
         </main>
     </div>
+    {{-- JQuaryの導入 --}}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    {{-- フォームの追加 --}}
+    <script>
+        $(function() {
+            $(".btn-dell").click(function() {
+                if (confirm("本当に削除しますか？")) {
+                    var id = $(this).data('id');
+                    location.href = '{{ route('user.destroy', '') }}/' + id;
+                } else {
+                    return false;
+                }
+            });
+        });
+    </script>
 </body>
 
 </html>
