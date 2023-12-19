@@ -36,12 +36,13 @@
                                         <tr>
                                             <td class="px-4 py-3">{{ $projectScope->manager_name }}</td>
                                             <td class="px-4 py-3">
-                                                {{ date('Y年m月d日 H時i分', strtotime($projectScope->sales_in_charge)) }}
+                                                <x-datetime :datetime="$projectScope->sales_in_charge" />
                                             </td>
                                             <td class="px-4 py-3">{{ number_format($projectScope->order_amount) }}円
                                             </td>
                                             <td class="px-4 py-3">
-                                                {{ date('Y年m月d日 H時i分', strtotime($projectScope->order_date)) }}</td>
+                                                <x-datetime :datetime="$projectScope->order_date" />
+                                            </td>
                                             <td class="px-4 py-3">{{ $projectScope->status }}</td>
                                         </tr>
                                     </tbody>
