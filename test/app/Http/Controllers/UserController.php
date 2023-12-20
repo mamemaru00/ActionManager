@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\Project;
 use Illuminate\Support\Facades\Auth;
 use App\Services\ChatWorkService;
+use App\Models\TradingCompany;
 
 class UserController extends Controller
 {
@@ -27,7 +28,11 @@ class UserController extends Controller
     public function store(Request $request)
     {
         try {
+            $tradingCompany = new TradingCompany;
+            $tradingCompany->fill($request->all())->save();
+
             $projectCreation = new Project;
+            $request->merge(['trading_company_id' => $tradingCompany->id]);
             $projectCreation->fill($request->all())->save();
 
             // ChatWorkServiceのaddMessageメソッドを呼び出す

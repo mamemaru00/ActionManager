@@ -20,6 +20,8 @@ class ProjectTable extends Migration
             $table->integer('manager_code')->comment('担当者コード');
             $table->string('manager_name')->comment('担当者名');
             $table->unsignedBigInteger('trading_company_id')->nullable();
+            $table->foreign('trading_company_id')->references('id')->on('trading_companies');
+
             $table->dateTime('sales_in_charge')->comment('納期');
             $table->string('order_amount')->comment('受注金額');
             $table->dateTime('order_date')->comment('受注日');
