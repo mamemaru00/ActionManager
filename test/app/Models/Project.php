@@ -15,6 +15,7 @@ class Project extends Model
         'project_name',
         'manager_code',
         'manager_name',
+        'trading_company_id',
         'sales_in_charge',
         'order_amount',
         'order_date',
