@@ -7,10 +7,22 @@ use App\Models\User;
 use App\Models\Project;
 use Illuminate\Support\Facades\Auth;
 use App\Services\ChatWorkService;
-use App\Models\TradingCompany;
+use App\Services\ProjectService;
 
 class UserController extends Controller
 {
+    private $chatWorkService;
+    private $projectService;
+
+    public function __construct(
+        ChatWorkService $chatWorkService,
+        ProjectService $projectService
+    )
+    {
+        $this->chatWorkService = $chatWorkService;
+        $this->projectService = $projectService;
+    }    
+
     public function index()
     {
         $user = Auth::user();
@@ -28,18 +40,12 @@ class UserController extends Controller
     public function store(Request $request)
     {
         try {
-            $tradingCompany = new TradingCompany;
-            $tradingCompany->fill($request->all())->save();
-
-            $projectCreation = new Project;
-            $request->merge(['trading_company_id' => $tradingCompany->id]);
-            $projectCreation->fill($request->all())->save();
-
+            $this->projectService->createProject($request);
+            
             // ChatWorkServiceのaddMessageメソッドを呼び出す
-            $projectCreateMessage = new ChatWorkService();
             $body = "新規に{$request->project_name}が作成されました。";
-            $projectCreateMessage->addMessage($body);
-            $projectCreateMessage->sendMessage();
+            $this->chatWorkService->addMessage($body);
+            $this->chatWorkService->sendMessage();
 
         } catch (\Exception $e) {
             info($e->getMessage());
