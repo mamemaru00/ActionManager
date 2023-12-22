@@ -22,4 +22,11 @@ class ProjectInfoRepository
             $project->fill($request->all())->save();
         }
     }
+    
+    public function getProjectScope($id)
+    {
+        $project = new Project;
+        $projectScope = $project->findOrFail($id);
+        return $projectScope;
+    }
 }

@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\User;
 use App\Models\Project;
 use Illuminate\Support\Facades\Auth;
 use App\Services\ChatWorkService;
@@ -33,11 +32,8 @@ class UserController extends Controller
     public function store(Request $request)
     {
         try {
-            // ProjectServiceのcreateProjectメソッドを呼び出す
-            $projectInfoRepository = new ProjectInfoRepository;
-            $projectInfoRepository->createProjectInfo($request);
+            (new ProjectInfoRepository)->createProjectInfo($request);
             
-            // ChatWorkServiceのaddMessageメソッドを呼び出す
             $chatWorkService = new ChatWorkService;
             $body = "新規に{$request->project_name}が作成されました。";
             $chatWorkService->addMessage($body);
@@ -52,9 +48,11 @@ class UserController extends Controller
 
     public function show($id)
     {
-        $projectScope = Project::findOrFail($id);
+        $projectScope = (new ProjectInfoRepository)->getProjectScope($id);
 
-        return view('user.show', compact('projectScope'));
+        $tradingCompanyShowInfo = (new TradingCompanyInfoRepository)->getTradingCompanyScope($projectScope->trading_company_id);
+
+        return view('user.show', compact('projectScope', 'tradingCompanyShowInfo'));
     }
 
     public function edit($id)

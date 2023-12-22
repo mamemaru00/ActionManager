@@ -18,4 +18,11 @@ class TradingCompanyInfoRepository
         $tradingCompany->fill($request->all())->save();
         return $tradingCompany;
     }
+
+    public function getTradingCompanyScope($id)
+    {
+        $tradingCompany = new TradingCompany;
+        $tradingCompanyScope = $tradingCompany->findOrFail($id);
+        return $tradingCompanyScope;
+    }
 }
