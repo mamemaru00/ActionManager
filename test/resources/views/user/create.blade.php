@@ -17,22 +17,32 @@
                                         @csrf
                                         <div class="relative mb-4">
                                             {{-- 取引先入力欄 --}}
+                                            <h2 class="border-2 bg-gray-200 flex justify-center">取引先選択欄</h2>
+                                            <select name="trading_company_id" id="trading_company_id"
+                                                class="w-1/2 bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-2 px-3 my-4 leading-8 transition-colors duration-200 ease-in-out">
+                                                <option value="">取引先を選択してください</option>
+                                                @foreach ($tradingCompanyData as $tradingCompany)
+                                                    <option value="{{ $tradingCompany->id }}">
+                                                        {{ $tradingCompany->trading_company_name }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
                                             <h2 class="border-2 bg-gray-200 flex justify-center">取引先入力欄</h2>
                                             <label for="trading_company_name"
                                                 class="leading-7 text-sm text-gray-600">取引会社名</label>
                                             <input type="text" id="trading_company_name" name="trading_company_name"
-                                                class="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"required>
+                                                class="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
                                             <label for="trading_company_manager_name"
                                                 class="leading-7 text-sm text-gray-600">取引先担当者</label>
                                             <input type="text" id="trading_company_manager_name"
                                                 name="trading_company_manager_name"
-                                                class="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"required>
+                                                class="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
                                             <div class="flex flex-col">
                                                 <label for="trading_company_tel"
                                                     class="leading-7 text-sm text-gray-600">取引先担当者電話番号</label>
                                                 <input type="tel" id="trading_company_tel"
                                                     name="trading_company_tel"
-                                                    class="w-1/5 bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"required>
+                                                    class="w-1/5 bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
                                             </div>
 
                                             {{-- プロジェクトの入力欄 --}}
