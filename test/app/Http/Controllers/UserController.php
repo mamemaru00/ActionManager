@@ -8,21 +8,11 @@ use App\Models\Project;
 use Illuminate\Support\Facades\Auth;
 use App\Services\ChatWorkService;
 use App\Services\ProjectService;
+use App\Repositories\TradingCompanyInfoRepository;
+use App\Repositories\ProjectInfoRepository;
 
 class UserController extends Controller
 {
-    private $chatWorkService;
-    private $projectService;
-
-    public function __construct(
-        ChatWorkService $chatWorkService,
-        ProjectService $projectService
-    )
-    {
-        $this->chatWorkService = $chatWorkService;
-        $this->projectService = $projectService;
-    }    
-
     public function index()
     {
         $user = Auth::user();
@@ -34,18 +24,24 @@ class UserController extends Controller
 
     public function create()
     {
-        return view('user.create');
+        $tradingCompanyInfoRepository = new TradingCompanyInfoRepository;
+        $tradingCompanyData = $tradingCompanyInfoRepository->getTradingCompanyData();
+
+        return view('user.create', compact('tradingCompanyData'));
     }
 
     public function store(Request $request)
     {
         try {
-            $this->projectService->createProject($request);
+            // ProjectServiceのcreateProjectメソッドを呼び出す
+            $projectInfoRepository = new ProjectInfoRepository;
+            $projectInfoRepository->createProjectInfo($request);
             
             // ChatWorkServiceのaddMessageメソッドを呼び出す
+            $chatWorkService = new ChatWorkService;
             $body = "新規に{$request->project_name}が作成されました。";
-            $this->chatWorkService->addMessage($body);
-            $this->chatWorkService->sendMessage();
+            $chatWorkService->addMessage($body);
+            $chatWorkService->sendMessage();
 
         } catch (\Exception $e) {
             info($e->getMessage());

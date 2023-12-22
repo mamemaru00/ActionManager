@@ -6,15 +6,16 @@ use App\Models\TradingCompany;
 
 class TradingCompanyInfoRepository
 {
-    private $tradingCompany;
-
-    public function __construct(TradingCompany $tradingCompany)
+    public function getTradingCompanyData()
     {
-        $this->tradingCompany = $tradingCompany;
+        $tradingCompanyData = TradingCompany::all();
+        return $tradingCompanyData;
     }
 
     public function createTradingCompanyInfo($request)
     {
-        $this->tradingCompany->fill($request->all())->save();
+        $tradingCompany = new TradingCompany;
+        $tradingCompany->fill($request->all())->save();
+        return $tradingCompany;
     }
 }
