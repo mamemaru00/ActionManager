@@ -18,7 +18,7 @@ class UserController extends Controller
     {
         $authUser = (new UserRepository)->getAuthUser();
         $officeName = (new OfficeServices)->getUserOfficeName($authUser);
-        
+
         $projectData = (new ProjectInfoRepository($project))->getProjectData();
 
         return view('user.index', compact('officeName', 'projectData'));
@@ -60,22 +60,14 @@ class UserController extends Controller
 
     public function edit($id)
     {
-        $userId = Auth::user()->id;
-        $projectData = Project::findOrFail($id);
-
-        if ($userId !== $projectData->manager_code) {
-            abort(404);
-        }
+        $projectData = (new ProjectInfoRepository(new Project))->getProjectScope($id);
 
         return view('user.edit', compact('projectData'));
     }
 
     public function update(Request $request, $id)
     {
-        $project = Project::findOrFail($id);
-        $project->update([
-            "status" => $request->status,
-        ]);
+        (new ProjectInfoRepository(new Project))->updateProjectInfo($request, $id);
 
         return redirect()->route('user.index');
     }
