@@ -15,6 +15,13 @@ class ProjectInfoRepository
         $this->project = $project;
     }
 
+    // Project::orderBy('sales_in_charge', 'desc')->get()をUserContoroller.phpから移植
+    public function getProjectData()
+    {
+        $projectData = Project::orderBy('sales_in_charge', 'desc')->get();
+        return $projectData;
+    }
+
     public function createProjectInfo($request, TradingCompany $tradingCompany)
     {
         if ($request->trading_company_id) {
