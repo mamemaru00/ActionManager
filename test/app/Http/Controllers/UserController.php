@@ -11,6 +11,7 @@ use App\Repositories\TradingCompanyInfoRepository;
 use App\Repositories\ProjectInfoRepository;
 use App\Repositories\UserRepository;
 use App\Services\OfficeServices;
+use App\Services\ProjectService;
 
 class UserController extends Controller
 {
@@ -75,8 +76,8 @@ class UserController extends Controller
     public function destroy($id)
     {
         // Projectsテーブルから指定のIDのレコード1件を取得して削除
-        $projectDestroy = Project::find($id);
-        $projectDestroy->delete();
+        $projectDestroy = (new ProjectInfoRepository(new Project))->getProjectScope($id);
+        (new ProjectService)->projectDestroy($projectDestroy);
         return redirect()->route('user.index');
     }
 }
