@@ -15,7 +15,6 @@ class ProjectInfoRepository
         $this->project = $project;
     }
 
-    // Project::orderBy('sales_in_charge', 'desc')->get()をUserContoroller.phpから移植
     public function getProjectData()
     {
         $projectData = Project::orderBy('sales_in_charge', 'desc')->get();
@@ -40,5 +39,13 @@ class ProjectInfoRepository
     {
         $projectScope = $this->project->findOrFail($id);
         return $projectScope;
+    }
+
+    public function updateProjectInfo($request, $id)
+    {
+        $projectScope = $this->project->findOrFail($id);
+        $projectScope->update([
+            "status" => $request->status,
+        ]);
     }
 }

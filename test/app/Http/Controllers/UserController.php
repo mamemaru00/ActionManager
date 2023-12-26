@@ -11,6 +11,7 @@ use App\Repositories\TradingCompanyInfoRepository;
 use App\Repositories\ProjectInfoRepository;
 use App\Repositories\UserRepository;
 use App\Services\OfficeServices;
+use App\Services\ProjectService;
 
 class UserController extends Controller
 {
@@ -18,7 +19,7 @@ class UserController extends Controller
     {
         $authUser = (new UserRepository)->getAuthUser();
         $officeName = (new OfficeServices)->getUserOfficeName($authUser);
-        
+
         $projectData = (new ProjectInfoRepository($project))->getProjectData();
 
         return view('user.index', compact('officeName', 'projectData'));
@@ -60,22 +61,14 @@ class UserController extends Controller
 
     public function edit($id)
     {
-        $userId = Auth::user()->id;
-        $projectData = Project::findOrFail($id);
-
-        if ($userId !== $projectData->manager_code) {
-            abort(404);
-        }
+        $projectData = (new ProjectInfoRepository(new Project))->getProjectScope($id);
 
         return view('user.edit', compact('projectData'));
     }
 
     public function update(Request $request, $id)
     {
-        $project = Project::findOrFail($id);
-        $project->update([
-            "status" => $request->status,
-        ]);
+        (new ProjectInfoRepository(new Project))->updateProjectInfo($request, $id);
 
         return redirect()->route('user.index');
     }
@@ -83,8 +76,8 @@ class UserController extends Controller
     public function destroy($id)
     {
         // Projectsテーブルから指定のIDのレコード1件を取得して削除
-        $projectDestroy = Project::find($id);
-        $projectDestroy->delete();
+        $projectDestroy = (new ProjectInfoRepository(new Project))->getProjectScope($id);
+        (new ProjectService)->projectDestroy($projectDestroy);
         return redirect()->route('user.index');
     }
 }
