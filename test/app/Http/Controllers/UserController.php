@@ -9,14 +9,17 @@ use Illuminate\Support\Facades\Auth;
 use App\Services\ChatWorkService;
 use App\Repositories\TradingCompanyInfoRepository;
 use App\Repositories\ProjectInfoRepository;
+use App\Repositories\UserRepository;
+use App\Services\OfficeServices;
 
 class UserController extends Controller
 {
-    public function index()
+    public function index(Project $project)
     {
-        $user = Auth::user();
-        $officeName = $user->office->officeName;
-        $projectData = Project::orderBy('sales_in_charge', 'desc')->get();
+        $authUser = (new UserRepository)->getAuthUser();
+        $officeName = (new OfficeServices)->getUserOfficeName($authUser);
+        
+        $projectData = (new ProjectInfoRepository($project))->getProjectData();
 
         return view('user.index', compact('officeName', 'projectData'));
     }
