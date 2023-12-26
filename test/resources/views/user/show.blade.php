@@ -11,7 +11,41 @@
                 <div class="p-6 bg-white border-b border-gray-200">
                     <section class="text-gray-600 body-font">
                         <div class="container px-5 py-24 mx-auto">
+
                             <div class="lg:w-2/3 w-full mx-auto overflow-auto">
+                                <h2>取引先情報</h2>
+                                <table class="table-auto w-full text-left whitespace-no-wrap">
+                                    <thead>
+                                        <tr>
+                                            <th
+                                                class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100 rounded-tl rounded-bl">
+                                                取引会社名</th>
+                                            <th
+                                                class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">
+                                                取引先担当者名</th>
+                                            <th
+                                                class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">
+                                                取引先電話番号</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td class="px-4 py-3">
+                                                {{ $tradingCompanyShowInfo->trading_company_name }}
+                                            </td>
+                                            <td class="px-4 py-3">
+                                                {{ $tradingCompanyShowInfo->trading_company_manager_name }}
+                                            </td>
+                                            <td class="px-4 py-3">
+                                                {{ $tradingCompanyShowInfo->trading_company_tel }}
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <div class="lg:w-2/3 w-full mx-auto overflow-auto">
+                                <h2>プロジェク情報</h2>
                                 <table class="table-auto w-full text-left whitespace-no-wrap">
                                     <thead>
                                         <tr>

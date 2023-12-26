@@ -3,11 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\User;
 use App\Models\Project;
+use App\Models\TradingCompany;
 use Illuminate\Support\Facades\Auth;
 use App\Services\ChatWorkService;
-use App\Services\ProjectService;
 use App\Repositories\TradingCompanyInfoRepository;
 use App\Repositories\ProjectInfoRepository;
 
@@ -22,22 +21,19 @@ class UserController extends Controller
         return view('user.index', compact('officeName', 'projectData'));
     }
 
-    public function create()
+    public function create(Request $request, TradingCompany $tradingCompany)
     {
-        $tradingCompanyInfoRepository = new TradingCompanyInfoRepository;
+        $tradingCompanyInfoRepository = new TradingCompanyInfoRepository($tradingCompany);
         $tradingCompanyData = $tradingCompanyInfoRepository->getTradingCompanyData();
 
         return view('user.create', compact('tradingCompanyData'));
     }
 
-    public function store(Request $request)
+    public function store(Request $request, Project $project, TradingCompany $tradingCompany)
     {
         try {
-            // ProjectServiceのcreateProjectメソッドを呼び出す
-            $projectInfoRepository = new ProjectInfoRepository;
-            $projectInfoRepository->createProjectInfo($request);
+            (new ProjectInfoRepository($project))->createProjectInfo($request, $tradingCompany);
             
-            // ChatWorkServiceのaddMessageメソッドを呼び出す
             $chatWorkService = new ChatWorkService;
             $body = "新規に{$request->project_name}が作成されました。";
             $chatWorkService->addMessage($body);
@@ -50,11 +46,13 @@ class UserController extends Controller
         return redirect()->route('user.index');
     }
 
-    public function show($id)
+    public function show($id, Project $project, TradingCompany $tradingCompany)
     {
-        $projectScope = Project::findOrFail($id);
+        $projectScope = (new ProjectInfoRepository($project))->getProjectScope($id);
 
-        return view('user.show', compact('projectScope'));
+        $tradingCompanyShowInfo = (new TradingCompanyInfoRepository($tradingCompany))->getTradingCompanyScope($projectScope->trading_company_id);
+
+        return view('user.show', compact('projectScope', 'tradingCompanyShowInfo'));
     }
 
     public function edit($id)
