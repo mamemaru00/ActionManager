@@ -11,4 +11,9 @@ class UserRepository
     {
         return Auth::user();
     }
+
+    public function getAuthUserId()
+    {
+        return Auth::user()->id;
+    }
 }
