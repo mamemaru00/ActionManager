@@ -58,15 +58,18 @@
                                                 <input type="text" id="project_name" name="project_name"
                                                     class="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
                                                     required>
-                                                <label for="manager_code"
-                                                    class="leading-7 text-sm text-gray-600">担当者コード</label>
-                                                <input type="number" id="manager_code" name="manager_code"
-                                                    class="w-1/2 bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"required>
-                                                <label for="manager_name"
-                                                    class="leading-7 text-sm text-gray-600">担当者名</label>
-                                                <input type="text" id="manager_name" name="manager_name"
-                                                    class="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
-                                                    required>
+
+                                                {{-- 担当者をプルダウンで選択できるようにする --}}
+                                                <select name="user_id" id="user_id"
+                                                    class="w-1/2 bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-2 px-3 my-4 leading-8 transition-colors duration-200 ease-in-out">
+                                                    <option value="">営業担当者を選択してください</option>
+                                                    @foreach ($userAllData as $userItem)
+                                                        <option value="{{ $userItem->id }}">
+                                                            {{ $userItem->name }}
+                                                        </option>
+                                                    @endforeach
+                                                </select>
+
                                                 <label for="sales_in_charge"
                                                     class="leading-7 text-sm text-gray-600">受注日</label>
                                                 <input type="date" id="sales_in_charge" name="sales_in_charge"
