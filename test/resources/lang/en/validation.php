@@ -107,7 +107,7 @@ return [
     'prohibited_unless' => 'The :attribute field is prohibited unless :other is in :values.',
     'prohibits' => 'The :attribute field prohibits :other from being present.',
     'regex' => 'The :attribute format is invalid.',
-    'required' => 'The :attribute field is required.',
+    'required' => ':attributeは必須です',
     'required_array_keys' => 'The :attribute field must contain entries for: :values.',
     'required_if' => 'The :attribute field is required when :other is :value.',
     'required_unless' => 'The :attribute field is required unless :other is in :values.',
@@ -158,6 +158,14 @@ return [
     |
     */
 
-    'attributes' => [],
+    'attributes' => [
+        'project_code' => 'プロジェクトコード',
+        'project_name' => 'プロジェクト名',
+        'sales_in_charge' => '納期',
+        'user_id' => '担当者',
+        'order_amount' => '受注金額',
+        'order_date' => '受注日',
+        'status' => 'ステータス',
+    ],
 
 ];

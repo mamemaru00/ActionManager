@@ -15,13 +15,13 @@ class ProjectTable extends Migration
     {
         Schema::create('projects', function (Blueprint $table) {
             $table->id();
-            $table->string('project_code')->comment('プロジェクトコード');
-            $table->string('project_name')->comment('プロジェクト名');
-            $table->integer('manager_code')->comment('担当者コード');
-            $table->string('manager_name')->comment('担当者名');
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users');
             $table->unsignedBigInteger('trading_company_id')->nullable();
             $table->foreign('trading_company_id')->references('id')->on('trading_companies');
 
+            $table->string('project_code')->comment('プロジェクトコード');
+            $table->string('project_name')->comment('プロジェクト名');
             $table->dateTime('sales_in_charge')->comment('納期');
             $table->string('order_amount')->comment('受注金額');
             $table->dateTime('order_date')->comment('受注日');

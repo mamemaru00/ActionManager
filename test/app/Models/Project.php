@@ -13,8 +13,7 @@ class Project extends Model
     protected $fillable = [
         'project_code',
         'project_name',
-        'manager_code',
-        'manager_name',
+        'user_id',
         'trading_company_id',
         'sales_in_charge',
         'order_amount',
@@ -23,9 +22,9 @@ class Project extends Model
         'created_at'
     ];
 
-    public function users()
+    public function user()
     {
-        return $this->hasMany(User::class, 'manager_code', 'manager_code');
+        return $this->belongsTo(User::class);
     }
 
     public function tradingCompany() 
