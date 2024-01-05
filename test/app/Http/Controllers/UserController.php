@@ -36,6 +36,17 @@ class UserController extends Controller
 
     public function store(Request $request, Project $project, TradingCompany $tradingCompany)
     {
+        //バリデーションを追加
+        $request->validate([
+            'project_code' => 'required',
+            'project_name' => 'required|max:255',
+            'user_id' => 'required',
+            'sales_in_charge' => 'required',
+            'order_amount' => 'required',
+            'order_date' => 'required',
+            'status' => 'required',
+        ]);
+        
         try {
             (new ProjectInfoRepository($project))->createProjectInfo($request, $tradingCompany);
             
