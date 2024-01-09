@@ -55,9 +55,7 @@
                                                 </label>
                                                 <input type="number" id="project_code" name="project_code"
                                                     class="w-1/2 bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out {{ $errors->has('project_code') ? 'border-red-500' : '' }}">
-                                                @error('project_code')
-                                                    <div class="text-red-500 text-xs">{{ $message }}</div>
-                                                @enderror
+                                                <x-error-display :error="$errors->first('project_code')" />
 
                                                 <label for="project_name" class="leading-7 text-sm text-gray-600 mt-3">
                                                     プロジェクト名
@@ -65,9 +63,7 @@
                                                 </label>
                                                 <input type="text" id="project_name" name="project_name"
                                                     class="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out {{ $errors->has('project_name') ? 'border-red-500' : '' }}">
-                                                @error('project_name')
-                                                    <div class="text-red-500 text-xs">{{ $message }}</div>
-                                                @enderror
+                                                <x-error-display :error="$errors->first('project_name')" />
 
                                                 {{-- 担当者をプルダウンで選択できるようにする --}}
                                                 <label for="user_id" class="leading-7 text-sm text-gray-600 mt-3">
@@ -83,9 +79,7 @@
                                                         </option>
                                                     @endforeach
                                                 </select>
-                                                @error('user_id')
-                                                    <div class="text-red-500 text-xs">{{ $message }}</div>
-                                                @enderror
+                                                <x-error-display :error="$errors->first('user_id')" />
 
                                                 <label for="sales_in_charge"
                                                     class="leading-7 text-sm text-gray-600 mt-3">
@@ -94,9 +88,7 @@
                                                 </label>
                                                 <input type="date" id="sales_in_charge" name="sales_in_charge"
                                                     class="w-1/5 bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out {{ $errors->has('sales_in_charge') ? 'border-red-500' : '' }}">
-                                                @error('sales_in_charge')
-                                                    <div class="text-red-500 text-xs">{{ $message }}</div>
-                                                @enderror
+                                                <x-error-display :error="$errors->first('sales_in_charge')" />
 
                                                 <label for="order_amount" class="leading-7 text-sm text-gray-600 mt-3">
                                                     受注金額
@@ -104,9 +96,7 @@
                                                 </label>
                                                 <input type="number" id="order_amount" name="order_amount"
                                                     class="w-1/2 bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out {{ $errors->has('order_amount') ? 'border-red-500' : '' }}">
-                                                @error('order_amount')
-                                                    <div class="text-red-500 text-xs">{{ $message }}</div>
-                                                @enderror
+                                                <x-error-display :error="$errors->first('order_amount')" />
 
                                                 <label for="order_date" class="leading-7 text-sm text-gray-600 mt-3">
                                                     納期
@@ -114,9 +104,7 @@
                                                 </label>
                                                 <input type="date" id="order_date" name="order_date"
                                                     class="w-1/5 bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out {{ $errors->has('order_date') ? 'border-red-500' : '' }}">
-                                                @error('order_amount')
-                                                    <div class="text-red-500 text-xs">{{ $message }}</div>
-                                                @enderror
+                                                <x-error-display :error="$errors->first('order_date')" />
 
                                                 <label for="status" class="leading-7 text-sm text-gray-600 mt-3">
                                                     ステータス
@@ -124,12 +112,7 @@
                                                 </label>
                                                 <input type="text" id="status" name="status"
                                                     class="w-1/6 bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out {{ $errors->has('status') ? 'border-red-500' : '' }}">
-                                                @error('status')
-                                                    <div class="text-red-500 text-xs">{{ $message }}</div>
-                                                @enderror
-
-
-
+                                                <x-error-display :error="$errors->first('status')" />
                                             </div>
 
                                         </div>
