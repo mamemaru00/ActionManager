@@ -11,6 +11,7 @@ use App\Repositories\ProjectInfoRepository;
 use App\Repositories\UserRepository;
 use App\Services\OfficeServices;
 use App\Services\ProjectService;
+use App\Http\Requests\createProjectRequest;
 
 class UserController extends Controller
 {
@@ -34,19 +35,8 @@ class UserController extends Controller
         return view('user.create', compact('tradingCompanyData', 'userAllData'));
     }
 
-    public function store(Request $request, Project $project, TradingCompany $tradingCompany)
+    public function store(Request $request, Project $project, TradingCompany $tradingCompany, createProjectRequest $createProjectRequest)
     {
-        //バリデーションを追加
-        $request->validate([
-            'project_code' => 'required',
-            'project_name' => 'required|max:255',
-            'user_id' => 'required',
-            'sales_in_charge' => 'required',
-            'order_amount' => 'required',
-            'order_date' => 'required',
-            'status' => 'required',
-        ]);
-        
         try {
             (new ProjectInfoRepository($project))->createProjectInfo($request, $tradingCompany);
             
