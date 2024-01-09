@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Project;
 use App\Models\TradingCompany;
-use Illuminate\Support\Facades\Auth;
 use App\Services\ChatWorkService;
 use App\Repositories\TradingCompanyInfoRepository;
 use App\Repositories\ProjectInfoRepository;
@@ -30,11 +29,24 @@ class UserController extends Controller
         $tradingCompanyInfoRepository = new TradingCompanyInfoRepository($tradingCompany);
         $tradingCompanyData = $tradingCompanyInfoRepository->getTradingCompanyData();
 
-        return view('user.create', compact('tradingCompanyData'));
+        $userAllData = (new UserRepository)->getUserAllData();
+
+        return view('user.create', compact('tradingCompanyData', 'userAllData'));
     }
 
     public function store(Request $request, Project $project, TradingCompany $tradingCompany)
     {
+        //バリデーションを追加
+        $request->validate([
+            'project_code' => 'required',
+            'project_name' => 'required|max:255',
+            'user_id' => 'required',
+            'sales_in_charge' => 'required',
+            'order_amount' => 'required',
+            'order_date' => 'required',
+            'status' => 'required',
+        ]);
+        
         try {
             (new ProjectInfoRepository($project))->createProjectInfo($request, $tradingCompany);
             
@@ -54,9 +66,11 @@ class UserController extends Controller
     {
         $projectScope = (new ProjectInfoRepository($project))->getProjectScope($id);
 
+        $userName = (new UserRepository)->getUserName($projectScope->user_id); 
+        
         $tradingCompanyShowInfo = (new TradingCompanyInfoRepository($tradingCompany))->getTradingCompanyScope($projectScope->trading_company_id);
 
-        return view('user.show', compact('projectScope', 'tradingCompanyShowInfo'));
+        return view('user.show', compact('projectScope', 'userName', 'tradingCompanyShowInfo'));
     }
 
     public function edit($id)

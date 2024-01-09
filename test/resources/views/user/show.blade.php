@@ -68,7 +68,7 @@
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td class="px-4 py-3">{{ $projectScope->manager_name }}</td>
+                                            <td class="px-4 py-3">{{ $userName }}</td>
                                             <td class="px-4 py-3">
                                                 <x-datetime :datetime="$projectScope->sales_in_charge" />
                                             </td>

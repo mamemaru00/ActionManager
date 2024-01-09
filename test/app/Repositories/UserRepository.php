@@ -16,4 +16,14 @@ class UserRepository
     {
         return Auth::user()->id;
     }
+
+    public function getUserAllData()
+    {
+        return User::all();
+    }
+
+    public function getUserName($id)
+    {
+        return User::find($id)->name;
+    }
 }
