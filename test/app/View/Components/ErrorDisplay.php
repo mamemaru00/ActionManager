@@ -15,7 +15,6 @@ class ErrorDisplay extends Component
      */
     public function __construct($error)
     {
-        //値を渡す
         $this->error = $error;
     }
 
