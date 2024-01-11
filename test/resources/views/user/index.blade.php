@@ -35,6 +35,7 @@
                                         @endforeach
                                     </tbody>
                                 </table>
+                                {{ $projectData->links() }}
                             </div>
                         </div>
                     </section>

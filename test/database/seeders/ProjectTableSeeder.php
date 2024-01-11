@@ -53,5 +53,44 @@ class ProjectTableSeeder extends Seeder
                 'status' => '有効化',
             ],
         );
+        Project::create(
+            [
+                'id' => '4',
+                'user_id' => 1,
+                'trading_company_id' => 1,
+                'project_code' => '000004',
+                'project_name' => 'ホリデー案件',
+                'sales_in_charge' => '2024/07/01',
+                'order_amount' => '222222',
+                'order_date' => '2023/01/01',
+                'status' => '有効化',
+            ],
+        );
+        Project::create(
+            [
+                'id' => '5',
+                'user_id' => 1,
+                'trading_company_id' => 1,
+                'project_code' => '000005',
+                'project_name' => 'スノーボード案件',
+                'sales_in_charge' => '2024/07/01',
+                'order_amount' => '222222',
+                'order_date' => '2023/01/01',
+                'status' => '有効化',
+            ],
+        );
+        Project::create(
+            [
+                'id' => '6',
+                'user_id' => 1,
+                'trading_company_id' => 1,
+                'project_code' => '000006',
+                'project_name' => 'スキー案件',
+                'sales_in_charge' => '2024/07/01',
+                'order_amount' => '222222',
+                'order_date' => '2023/01/01',
+                'status' => '有効化',
+            ],
+        );
     }
 }

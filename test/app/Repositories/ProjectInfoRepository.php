@@ -9,27 +9,29 @@ use App\Repositories\TradingCompanyInfoRepository;
 class ProjectInfoRepository
 {
     private $project;
+    private $tradingCompany;
 
-    public function __construct(Project $project)
+    public function __construct()
     {
-        $this->project = $project;
+        $this->project = new Project;
+        $this->tradingCompany = new TradingCompany;
     }
 
     public function getProjectData()
     {
-        $projectData = Project::orderBy('sales_in_charge', 'desc')->get();
+        $projectData = Project::orderBy('sales_in_charge', 'desc')->paginate(5);
         return $projectData;
     }
 
-    public function createProjectInfo($request, TradingCompany $tradingCompany)
+    public function createProjectInfo($request)
     {
         if ($request->trading_company_id) {
             $this->project->fill($request->all())->save();
         } else {
-            $tradingCompanyInfoRepository = new TradingCompanyInfoRepository($tradingCompany);
+            $tradingCompanyInfoRepository = new TradingCompanyInfoRepository;
             $tradingCompanyInfoRepository->createTradingCompanyInfo($request);
 
-            $request->merge(['trading_company_id' => $tradingCompany->id]);
+            $request->merge(['trading_company_id' => $this->tradingCompany->id]);
 
             $this->project->fill($request->all())->save();
         }
