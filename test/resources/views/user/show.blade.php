@@ -45,7 +45,7 @@
                             </div>
 
                             <div class="lg:w-2/3 w-full mx-auto overflow-auto">
-                                <h2>プロジェク情報</h2>
+                                <h2>プロジェクト情報</h2>
                                 <table class="table-auto w-full text-left whitespace-no-wrap">
                                     <thead>
                                         <tr>
