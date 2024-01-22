@@ -17,6 +17,8 @@ use App\Http\Controllers\UserController;
 Route::prefix('user')-> middleware('auth:users')->group(function(){
     // プロジェクト一覧画面
     Route::get('index', [UserController::class, 'index'])->name('index');
+    // 検索機能
+    Route::get('searchProject', [UserController::class, 'searchProject'])->name('searchProject');
     // プロジェクト登録画面
     Route::get('create', [UserController::class, 'create'])->name('create');
     Route::post('store', [UserController::class, 'store'])->name('store');
