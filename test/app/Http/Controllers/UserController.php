@@ -85,4 +85,14 @@ class UserController extends Controller
         (new ProjectService)->projectDestroy($projectDestroy);
         return redirect()->route('user.index');
     }
+
+    public function searchProject(Request $request)
+    {
+        $authUser = (new UserRepository)->getAuthUser();
+        $officeName = (new OfficeServices)->getUserOfficeName($authUser);
+
+        $projectData = (new ProjectInfoRepository)->searchProject($request);
+
+        return view('user.index', compact('officeName', 'projectData'));
+    }
 }

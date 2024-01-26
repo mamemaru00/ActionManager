@@ -13,6 +13,21 @@
                     <section class="text-gray-600 body-font">
                         <div class="container px-5 py-24 mx-auto">
                             <div class="lg:w-2/3 w-full mx-auto overflow-auto">
+                                <div class="mb-5 ml-2">
+                                    <form action="{{ route('user.searchProject') }}" method="GET">
+                                        <input type="text" id="search" name="project_name"
+                                            class="w-2/3 bg-gray-100 rounded border border-gray-400 focus:outline-none focus:border-indigo-500 text-base px-4 py-2 mb-4"
+                                            placeholder="プロジェクト名を入力してください">
+                                        <button type="submit"
+                                            class="mx-auto text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">
+                                            検索
+                                        </button>
+                                        <button type="button" onclick="location.href='{{ route('user.index') }}'"
+                                            class="mx-auto text-white bg-red-500 border-0 py-2 px-8 focus:outline-none hover:bg-red-600 rounded text-lg">
+                                            クリア
+                                        </button>
+                                    </form>
+                                </div>
                                 <table class="table-auto w-full text-left whitespace-no-wrap">
                                     <thead>
                                         <tr>
