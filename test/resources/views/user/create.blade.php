@@ -22,7 +22,8 @@
                                                 class="w-1/2 bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-2 px-3 my-4 leading-8 transition-colors duration-200 ease-in-out">
                                                 <option value="">取引先を選択してください</option>
                                                 @foreach ($tradingCompanyData as $tradingCompany)
-                                                    <option value="{{ $tradingCompany->id }}">
+                                                    <option value="{{ $tradingCompany->id }}"
+                                                        {{ old('trading_company_id') == $tradingCompany->id ? 'selected' : '' }}>
                                                         {{ $tradingCompany->trading_company_name }}
                                                     </option>
                                                 @endforeach
@@ -32,18 +33,21 @@
                                             <label for="trading_company_name"
                                                 class="leading-7 text-sm text-gray-600 mt-3">取引会社名</label>
                                             <input type="text" id="trading_company_name" name="trading_company_name"
-                                                class="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                                                class="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+                                                value="{{ old('trading_company_name') }}">
                                             <label for="trading_company_manager_name"
                                                 class="leading-7 text-sm text-gray-600 mt-3">取引先担当者</label>
                                             <input type="text" id="trading_company_manager_name"
                                                 name="trading_company_manager_name"
-                                                class="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                                                class="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+                                                value="{{ old('trading_company_manager_name') }}">
                                             <div class="flex flex-col">
                                                 <label for="trading_company_tel"
                                                     class="leading-7 text-sm text-gray-600 mt-3">取引先担当者電話番号</label>
                                                 <input type="tel" id="trading_company_tel"
                                                     name="trading_company_tel"
-                                                    class="w-1/5 bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                                                    class="w-1/5 bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+                                                    value="{{ old('trading_company_tel') }}">
                                             </div>
 
                                             {{-- プロジェクトの入力欄 --}}
@@ -54,7 +58,8 @@
                                                     <span class="text-red-500">必須</span>
                                                 </label>
                                                 <input type="number" id="project_code" name="project_code"
-                                                    class="w-1/2 bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out {{ $errors->has('project_code') ? 'border-red-500' : '' }}">
+                                                    class="w-1/2 bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out {{ $errors->has('project_code') ? 'border-red-500' : '' }}"
+                                                    value="{{ old('project_code') }}">
                                                 <x-error-display :error="$errors->first('project_code')" />
 
                                                 <label for="project_name" class="leading-7 text-sm text-gray-600 mt-3">
@@ -62,7 +67,8 @@
                                                     <span class="text-red-500">必須</span>
                                                 </label>
                                                 <input type="text" id="project_name" name="project_name"
-                                                    class="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out {{ $errors->has('project_name') ? 'border-red-500' : '' }}">
+                                                    class="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out {{ $errors->has('project_name') ? 'border-red-500' : '' }}"
+                                                    value="{{ old('project_name') }}">
                                                 <x-error-display :error="$errors->first('project_name')" />
 
                                                 {{-- 担当者をプルダウンで選択できるようにする --}}
@@ -74,7 +80,8 @@
                                                     class="w-1/2 bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-2 px-3 leading-8 transition-colors duration-200 ease-in-out {{ $errors->has('user_id') ? 'border-red-500' : '' }}">
                                                     <option value="">営業担当者を選択してください</option>
                                                     @foreach ($userAllData as $userItem)
-                                                        <option value="{{ $userItem->id }}">
+                                                        <option value="{{ $userItem->id }}"
+                                                            {{ old('user_id') == $userItem->id ? 'selected' : '' }}>
                                                             {{ $userItem->name }}
                                                         </option>
                                                     @endforeach
@@ -87,7 +94,8 @@
                                                     <span class="text-red-500">必須</span>
                                                 </label>
                                                 <input type="date" id="sales_in_charge" name="sales_in_charge"
-                                                    class="w-1/5 bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out {{ $errors->has('sales_in_charge') ? 'border-red-500' : '' }}">
+                                                    class="w-1/5 bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out {{ $errors->has('sales_in_charge') ? 'border-red-500' : '' }}"
+                                                    value="{{ old('sales_in_charge') }}">
                                                 <x-error-display :error="$errors->first('sales_in_charge')" />
 
                                                 <label for="order_amount" class="leading-7 text-sm text-gray-600 mt-3">
@@ -95,7 +103,8 @@
                                                     <span class="text-red-500">必須</span>
                                                 </label>
                                                 <input type="number" id="order_amount" name="order_amount"
-                                                    class="w-1/2 bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out {{ $errors->has('order_amount') ? 'border-red-500' : '' }}">
+                                                    class="w-1/2 bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out {{ $errors->has('order_amount') ? 'border-red-500' : '' }}"
+                                                    value="{{ old('order_amount') }}">
                                                 <x-error-display :error="$errors->first('order_amount')" />
 
                                                 <label for="order_date" class="leading-7 text-sm text-gray-600 mt-3">
@@ -103,7 +112,8 @@
                                                     <span class="text-red-500">必須</span>
                                                 </label>
                                                 <input type="date" id="order_date" name="order_date"
-                                                    class="w-1/5 bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out {{ $errors->has('order_date') ? 'border-red-500' : '' }}">
+                                                    class="w-1/5 bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out {{ $errors->has('order_date') ? 'border-red-500' : '' }}"
+                                                    value="{{ old('order_date') }}">
                                                 <x-error-display :error="$errors->first('order_date')" />
 
                                                 <label for="status" class="leading-7 text-sm text-gray-600 mt-3">
@@ -111,7 +121,8 @@
                                                     <span class="text-red-500">必須</span>
                                                 </label>
                                                 <input type="text" id="status" name="status"
-                                                    class="w-1/6 bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out {{ $errors->has('status') ? 'border-red-500' : '' }}">
+                                                    class="w-1/6 bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out {{ $errors->has('status') ? 'border-red-500' : '' }}"
+                                                    value="{{ old('status') }}">
                                                 <x-error-display :error="$errors->first('status')" />
                                             </div>
 
