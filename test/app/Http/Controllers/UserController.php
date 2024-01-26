@@ -3,8 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Project;
-use App\Models\TradingCompany;
 use App\Services\ChatWorkService;
 use App\Repositories\TradingCompanyInfoRepository;
 use App\Repositories\ProjectInfoRepository;
@@ -15,19 +13,19 @@ use App\Http\Requests\createProjectRequest;
 
 class UserController extends Controller
 {
-    public function index(Project $project)
+    public function index()
     {
         $authUser = (new UserRepository)->getAuthUser();
         $officeName = (new OfficeServices)->getUserOfficeName($authUser);
 
-        $projectData = (new ProjectInfoRepository($project))->getProjectData();
+        $projectData = (new ProjectInfoRepository)->getProjectData();
 
         return view('user.index', compact('officeName', 'projectData'));
     }
 
-    public function create(Request $request, TradingCompany $tradingCompany)
+    public function create(Request $request)
     {
-        $tradingCompanyInfoRepository = new TradingCompanyInfoRepository($tradingCompany);
+        $tradingCompanyInfoRepository = new TradingCompanyInfoRepository;
         $tradingCompanyData = $tradingCompanyInfoRepository->getTradingCompanyData();
 
         $userAllData = (new UserRepository)->getUserAllData();
@@ -35,10 +33,10 @@ class UserController extends Controller
         return view('user.create', compact('tradingCompanyData', 'userAllData'));
     }
 
-    public function store(Request $request, Project $project, TradingCompany $tradingCompany, createProjectRequest $createProjectRequest)
+    public function store(Request $request, createProjectRequest $createProjectRequest)
     {
         try {
-            (new ProjectInfoRepository($project))->createProjectInfo($request, $tradingCompany);
+            (new ProjectInfoRepository)->createProjectInfo($request);
             
             $chatWorkService = new ChatWorkService;
             $body = "新規に{$request->project_name}が作成されました。";
@@ -52,27 +50,27 @@ class UserController extends Controller
         return redirect()->route('user.index');
     }
 
-    public function show($id, Project $project, TradingCompany $tradingCompany)
+    public function show($id)
     {
-        $projectScope = (new ProjectInfoRepository($project))->getProjectScope($id);
+        $projectScope = (new ProjectInfoRepository)->getProjectScope($id);
 
         $userName = (new UserRepository)->getUserName($projectScope->user_id); 
         
-        $tradingCompanyShowInfo = (new TradingCompanyInfoRepository($tradingCompany))->getTradingCompanyScope($projectScope->trading_company_id);
+        $tradingCompanyShowInfo = (new TradingCompanyInfoRepository)->getTradingCompanyScope($projectScope->trading_company_id);
 
         return view('user.show', compact('projectScope', 'userName', 'tradingCompanyShowInfo'));
     }
 
     public function edit($id)
     {
-        $projectData = (new ProjectInfoRepository(new Project))->getProjectScope($id);
+        $projectData = (new ProjectInfoRepository)->getProjectScope($id);
 
         return view('user.edit', compact('projectData'));
     }
 
     public function update(Request $request, $id)
     {
-        (new ProjectInfoRepository(new Project))->updateProjectInfo($request, $id);
+        (new ProjectInfoRepository)->updateProjectInfo($request, $id);
 
         return redirect()->route('user.index');
     }
@@ -80,7 +78,7 @@ class UserController extends Controller
     public function destroy($id)
     {
         // Projectsテーブルから指定のIDのレコード1件を取得して削除
-        $projectDestroy = (new ProjectInfoRepository(new Project))->getProjectScope($id);
+        $projectDestroy = (new ProjectInfoRepository)->getProjectScope($id);
         (new ProjectService)->projectDestroy($projectDestroy);
         return redirect()->route('user.index');
     }

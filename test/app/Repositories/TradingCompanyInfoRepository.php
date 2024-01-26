@@ -9,9 +9,9 @@ class TradingCompanyInfoRepository
 
     private $tradingCompany;
 
-    public function __construct(TradingCompany $tradingCompany)
+    public function __construct()
     {
-        $this->tradingCompany = $tradingCompany;
+        $this->tradingCompany = new TradingCompany;
     }
 
     public function getTradingCompanyData()
