@@ -46,8 +46,12 @@ class ProjectInfoRepository
     public function updateProjectInfo($request, $id)
     {
         $projectScope = $this->project->findOrFail($id);
-        $projectScope->update([
+        $projectScope->fill([
+            "user_id" => $request->user_id,
+            "sales_in_charge" => $request->sales_in_charge,
+            "order_amount" => $request->order_amount,
+            "order_date" => $request->order_date,
             "status" => $request->status,
-        ]);
+        ])->save();
     }
 }

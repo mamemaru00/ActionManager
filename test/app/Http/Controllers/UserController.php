@@ -64,13 +64,16 @@ class UserController extends Controller
     public function edit($id)
     {
         $projectData = (new ProjectInfoRepository)->getProjectScope($id);
+        (new ProjectService)->projectDateConversion($projectData);
 
-        return view('user.edit', compact('projectData'));
+        $userAllData = (new UserRepository)->getUserAllData();
+
+        return view('user.edit', compact('projectData', 'userAllData'));
     }
 
     public function update(Request $request, $id)
     {
-        (new ProjectInfoRepository)->updateProjectInfo($request, $id);
+        (new ProjectService)->projectUserIdConversion($request, $id);
 
         return redirect()->route('user.index');
     }
