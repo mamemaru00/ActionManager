@@ -28,6 +28,21 @@
                                         </button>
                                     </form>
                                 </div>
+
+                                <div class="flex">
+                                    {{-- 表示件数の可変項目の追加 --}}
+                                    <span class="text-sm">表示件数</span><br>
+                                    <select id="limit" name="limit">
+                                        <option value="5" @if (\Request::get('limit') === '5') selected @endif>5件
+                                        </option>
+                                        <option value="10" @if (\Request::get('limit') === '10') selected @endif>10件
+                                        </option>
+                                        <option value="20" @if (\Request::get('limit') === '20') selected @endif>20件
+                                        </option>
+                                    </select>
+
+                                </div>
+
                                 <table class="table-auto w-full text-left whitespace-no-wrap">
                                     <thead>
                                         <tr>
@@ -58,4 +73,11 @@
             </div>
         </div>
     </div>
+
+    <script>
+        const paginate = document.getElementById('limit')
+        limit.addEventListener('change', function() {
+            this.form.submit()
+        })
+    </script>
 </x-app-layout>

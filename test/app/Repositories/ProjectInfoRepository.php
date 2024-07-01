@@ -17,9 +17,11 @@ class ProjectInfoRepository
         $this->tradingCompany = new TradingCompany;
     }
 
-    public function getProjectData()
+    // 引数に$requestを追加
+    public function getProjectData($request)
     {
-        $projectData = Project::orderBy('sales_in_charge', 'desc')->paginate(5);
+        // paginateメソッドに$request->paginateを渡す
+        $projectData = Project::orderBy('sales_in_charge', 'desc')->paginate($request->limit);
         return $projectData;
     }
 

@@ -43,6 +43,12 @@
     {{-- フォームの追加 --}}
     <script>
         $(function() {
+            // 表示件数の可変項目の値を取得
+            // const paginate = document.getElementById('limit')
+            // limit.addEventListener('change', function() {
+            //     this.form.submit()
+            // })
+
             $(".btn-dell").click(function() {
                 if (confirm("本当に削除しますか？")) {
                     var id = $(this).data('id');
