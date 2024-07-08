@@ -7,15 +7,10 @@ use Tests\TestCase;
 
 class ExampleTest extends TestCase
 {
-    /**
-     * A basic test example.
-     *
-     * @return void
-     */
-    public function test_example()
+    // 簡単なデータベースのテスト
+    public function test_database()
     {
-        $response = $this->get('/');
-
-        $response->assertStatus(200);
+        // データベースにデータがあるか確認
+        $this->assertDatabaseHas('projects', ['project_code' => '000001']);
     }
 }
