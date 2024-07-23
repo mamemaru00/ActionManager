@@ -12,21 +12,19 @@ use App\Models\Project;
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use \App\Http\Middleware\Authenticate;
+use Mockery;
 
 class UserControllerTest extends TestCase
 {
     use WithoutMiddleware;
 
-    public function test_store()
+    public function test_Store()
     {
-        // ミドルウェアの設定
         $this->withMiddleware();
         $this->withoutMiddleware([Authenticate::class]); 
 
-        // プロジェクトを作成
         $project = Project::factory()->create();
 
-        // $projectの内容をpostメソッドで送信
         $response = $this->post(route('user.store'), [
             'user_id' => $project->user_id,
             'trading_company_id' => $project->trading_company_id,
@@ -38,28 +36,114 @@ class UserControllerTest extends TestCase
             'status' => $project->status,
         ]); 
 
-        // ステータスコードが302であることを確認
         $response->assertStatus(302);
-
-        // user.indexにリダイレクトされることを確認
         $response->assertRedirect(route('user.index'));
     }
 
+    public function test_Store_Exception()
+    {
+        $this->withMiddleware();
+        $this->withoutMiddleware([Authenticate::class]); 
 
-    // ログインしていなくてもアクセスできるか確認
-    public function test_Index()
+        $project = Project::factory()->create();
+
+        $mock = Mockery::mock(ProjectInfoRepository::class);
+        $mock->shouldReceive('createProjectInfo')->andThrow(new \Exception('error'));
+
+        $this->app->instance(ProjectInfoRepository::class, $mock);
+
+        $response = $this->post(route('user.store'), [
+            'user_id' => $project->user_id,
+            'trading_company_id' => $project->trading_company_id,
+            'project_code' => $project->project_code,
+            'project_name' => $project->project_name,
+            'sales_in_charge' => $project->sales_in_charge,
+            'order_amount' => $project->order_amount,
+            'order_date' => $project->order_date,
+            'status' => $project->status,
+        ]); 
+
+        $response->assertStatus(302);
+        $response->assertRedirect(route('user.index'));
+    }
+
+    public function test_Update()
+    {
+        $this->withMiddleware();
+        $this->withoutMiddleware([Authenticate::class]);
+
+        $project = Project::factory()->create();
+
+        $response = $this->put(route('user.update', ['id' => $project->id]), [
+            'user_id' => $project->user_id,
+            'trading_company_id' => $project->trading_company_id,
+            'project_code' => $project->project_code,
+            'project_name' => $project->project_name,
+            'sales_in_charge' => $project->sales_in_charge,
+            'order_amount' => $project->order_amount,
+            'order_date' => $project->order_date,
+            'status' => $project->status,
+        ]);
+
+        $response->assertStatus(302);
+        $response->assertRedirect(route('user.index'));
+    }
+
+    public function test_Index画面遷移テスト()
     {
         $this->withMiddleware();
         $this->withoutMiddleware([Authenticate::class]); 
 
         $this->withoutExceptionHandling();
-        //auth:usersでログイン認証
+
         $user = User::find(1);
-        // $response = $this->get(route('user.login'));　OKだった。
+
         $response = $this->actingAs($user)
                          ->get(route('user.index'));
-        // $response = $this->get(route('user.index'));
         $response->assertOK();
     }
 
+    public function test_Create画面遷移テスト()
+    {
+        $this->withMiddleware();
+        $this->withoutMiddleware([Authenticate::class]);
+
+        $this->withoutExceptionHandling();
+
+        $user = User::find(1);
+        $response = $this->actingAs($user)
+                         ->get(route('user.create'));
+
+        $response->assertOK();
+    }
+
+    public function test_Show画面遷移テスト()
+    {
+        $this->withMiddleware();
+        $this->withoutMiddleware([Authenticate::class]);
+
+        $this->withoutExceptionHandling();
+
+        $project = Project::find(1);
+        $user = User::find(1);
+
+        $response = $this->actingAs($user)
+                         ->get(route('user.show', ['id' => $project->id]));
+        $response->assertOK();
+    }
+
+    public function test_Edit画面遷移テスト()
+    {
+        $this->withMiddleware();
+        $this->withoutMiddleware([Authenticate::class]);
+
+        $this->withoutExceptionHandling();
+
+        $project = Project::find(1);
+        $user = User::find(1);
+
+        $response = $this->actingAs($user)
+                         ->get(route('user.edit', ['id' => $project->id]));
+        $response->assertOK();
+    }
 }
