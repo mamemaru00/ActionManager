@@ -13,16 +13,15 @@ use App\Http\Requests\createProjectRequest;
 
 class UserController extends Controller
 {
-    // Requestクラスで表示件数を取得してgetProjectDataメソッドに渡す
     public function index(Request $request)
     {
         $authUser = (new UserRepository)->getAuthUser();
         $officeName = (new OfficeServices)->getUserOfficeName($authUser);
-
-        // dd($request->limit);
+        
         $projectData = (new ProjectInfoRepository)->getProjectData($request);
+        $limit = $projectData->perPage();
 
-        return view('user.index', compact('officeName', 'projectData'));
+        return view('user.index', compact('officeName', 'projectData', 'limit'));
     }
 
     public function create(Request $request)

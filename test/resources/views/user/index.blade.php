@@ -29,19 +29,22 @@
                                     </form>
                                 </div>
 
-                                <div class="flex">
-                                    {{-- 表示件数の可変項目の追加 --}}
-                                    <span class="text-sm">表示件数</span><br>
-                                    <select id="limit" name="limit">
-                                        <option value="5" @if (\Request::get('limit') === '5') selected @endif>5件
-                                        </option>
-                                        <option value="10" @if (\Request::get('limit') === '10') selected @endif>10件
-                                        </option>
-                                        <option value="20" @if (\Request::get('limit') === '20') selected @endif>20件
-                                        </option>
-                                    </select>
-
-                                </div>
+                                <form action="{{ route('user.index') }}" method="GET">
+                                    <div class="flex flex-row-reverse">
+                                        <span class="text-sm mt-4">表示件数</span><br>
+                                        <select name="limit" id="limit" onchange="this.form.submit()"
+                                            class="w-20 bg-gray-100 rounded border border-gray-400 focus:outline-none text-base px-4 py-2 mb-4">
+                                            <option value="5" @if ($limit == 5) selected @endif>5
+                                            </option>
+                                            <option value="10" @if ($limit == 10) selected @endif>10
+                                            </option>
+                                            <option value="15" @if ($limit == 15) selected @endif>15
+                                            </option>
+                                            <option value="20" @if ($limit == 20) selected @endif>20
+                                            </option>
+                                        </select>
+                                    </div>
+                                </form>
 
                                 <table class="table-auto w-full text-left whitespace-no-wrap">
                                     <thead>
@@ -73,11 +76,4 @@
             </div>
         </div>
     </div>
-
-    <script>
-        const paginate = document.getElementById('limit')
-        limit.addEventListener('change', function() {
-            this.form.submit()
-        })
-    </script>
 </x-app-layout>
