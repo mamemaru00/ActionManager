@@ -2,6 +2,7 @@
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             {{-- 事業所名を直接コントローラから渡す --}}
+            {{-- ここの記述をviewで取得するようにする --}}
             {{ $officeName ?? '' }}
         </h2>
     </x-slot>
